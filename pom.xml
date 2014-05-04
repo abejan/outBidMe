@@ -2,22 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>outBidMe</groupId>
-    <artifactId>outBidMe</artifactId>
-
-    <packaging>pom</packaging>
-
+    <groupId>OutBidMe</groupId>
+    <artifactId>OutBidMe</artifactId>
+    <packaging>war</packaging>
+   
     <properties>
         <junit.version>4.11</junit.version>
         <slf4j.version>1.7.0</slf4j.version>
-        <java.compiler.version>1.6</java.compiler.version>
+        <java.compiler.version>1.8</java.compiler.version>
         <mockito.version>1.8.4</mockito.version>
-        <hamcrest.version>1.3</hamcrest.version>
-        <check.phase>process-sources</check.phase>
-        <spring.version>3.1.0.RELEASE</spring.version>
-        <outBidMe.version>1.0-SNAPSHOT</outBidMe.version>
+        <spring.version>4.0.4.RELEASE</spring.version>
+        <outBidMe.version>1.0.0</outBidMe.version>
     </properties>
 
     <version>${outBidMe.version}</version>
@@ -41,17 +38,18 @@
 
     <dependencies>
 
+		<!-- FRAMEWORKS -->
+		<dependency>
+        	<groupId>org.springframework</groupId>
+        	<artifactId>spring-context</artifactId>
+        	<version>${spring.version}</version>
+    	</dependency>
+
         <!-- TEST -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
-            <version>${hamcrest.version}</version>
         </dependency>
 
         <dependency>
@@ -99,8 +97,9 @@
                     <target>${java.compiler.version}</target>
                 </configuration>
             </plugin>
+            
             <!-- CheckStyle -->
-            <plugin>
+            <!--   <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>2.10</version>
@@ -119,13 +118,12 @@
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>true</failsOnError>
                 </configuration>
-            </plugin>
+            </plugin> -->
 
             <!-- FindBugs -->
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <!-- Uses FindBugs version 2.0.1 -->
                 <version>2.5.2</version>
                 <executions>
                     <execution>
@@ -137,17 +135,15 @@
                 <configuration>
                     <includeFilterFile>${basedir}/../etc/FindbugsSonar.xml</includeFilterFile>
                     <effort>Max</effort>
-                    <!-- High/Low -->
                     <threshold>Low</threshold>
                     <includeTests>false</includeTests>
                 </configuration>
-            </plugin>
+            </plugin> -->
 
             <!--PMD-->
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <!-- Uses PMD version 4.3 -->
                 <version>2.7.1</version>
                 <executions>
                     <execution>
@@ -166,9 +162,29 @@
                     <verbose>true</verbose>
                     <includeTests>false</includeTests>
                 </configuration>
-            </plugin>
+            </plugin>  -->
+            
+            <!-- JDK 8 -->
+             <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>enforce-versions</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireJavaVersion>
+									<version>1.8</version>
+								</requireJavaVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+            
         </plugins>
     </build>
-
-
 </project>
