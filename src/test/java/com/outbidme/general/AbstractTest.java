@@ -14,9 +14,14 @@ import static org.junit.Assert.assertEquals;
  */
 public class AbstractTest {
     private static PersistanceManager persistanceManager;
+    private static boolean isSetup = false;
 
     @BeforeClass
     public static void setup(){
+        if (isSetup) {
+            return;
+        }
+        isSetup = true;
         persistanceManager = PersistanceFactory.getPersistanceManager();
         saveAccount(TestUtils.TEST_USERNAME, TestUtils.TEST_PASSWORD); //this is an implicit test of persisting an account
     }
