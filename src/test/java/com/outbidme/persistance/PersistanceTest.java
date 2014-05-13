@@ -1,6 +1,5 @@
 package com.outbidme.persistance;
 
-import java.sql.Savepoint;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -23,7 +22,7 @@ public class PersistanceTest {
 	
 	
 	@Test
-	public void can_log_in_existing_account_with_username_and_password(){
+	public void can_retrieve_an_existing_account_with_username(){
 		AccountGateway accountGateway = PersistanceFactory.getAccountGateway();
 		Account account = accountGateway.findAccountByUserName(TestUtils.TEST_USERNAME);
 		assertEquals(true, account != null);
@@ -32,9 +31,9 @@ public class PersistanceTest {
 
 	
 	private static void saveDefaultAccount(){
-		AccountGateway accountPersistor = PersistanceFactory.getAccountGateway();
+		AccountGateway accountGateway = PersistanceFactory.getAccountGateway();
 		Account account = TestUtils.getDefaultAccountInstance();
-		accountPersistor.persist(account);
+		accountGateway.persist(account);
 		assertEquals(true, pm.contains(account));
 	}
 	
