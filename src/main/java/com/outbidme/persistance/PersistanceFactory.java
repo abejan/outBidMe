@@ -5,15 +5,14 @@ import com.outbidme.persistance.authentication.AccountGateway;
 
 public class PersistanceFactory {
 
-	
-	public static PersistanceManager getPersistanceManager() {
-		return InMemPersistanceManager.Instance;
-	}
-	
-	
+
+    public static PersistanceManager getPersistanceManager() {
+        return InMemPersistanceManager.Instance;
+    }
+
 	public static AccountGateway getAccountGateway() {
 		return new AccountGateway() {
-			public void persist(Account account) {
+			public void persist(Account account) throws PersistenceException {
 				getPersistanceManager().persist(account);
 			}
 

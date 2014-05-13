@@ -5,7 +5,7 @@ package com.outbidme.persistance;
  */
 public interface  PersistanceManager {
 
-	public void persist(Object entity);
+	public void persist(Object entity) throws PersistenceException;
 	
 	public boolean contains(Object entity);
 
