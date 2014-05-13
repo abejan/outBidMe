@@ -1,7 +1,7 @@
 package com.outbidme.persistance;
 
 import com.outbidme.authentication.Account;
-import com.outbidme.persistance.authentication.AccountPersistor;
+import com.outbidme.persistance.authentication.AccountGateway;
 
 public class PersistanceFactory {
 
@@ -11,11 +11,24 @@ public class PersistanceFactory {
 	}
 	
 	
-	public static AccountPersistor getAccountPersistor() {
-		return new AccountPersistor() {
+	public static AccountGateway getAccountGateway() {
+		return new AccountGateway() {
 			public void persist(Account account) {
-				InMemPersistanceManager.Instance.persist(account);
+				getPersistanceManager().persist(account);
 			}
+
+			public Account findAccountByUserName(String username) {
+				return  getPersistanceManager().findEntity(getAccountMatcher(username), Account.class);
+			}
+
+			private EntityMatcher<Account> getAccountMatcher(final String username) {
+				return new EntityMatcher<Account>() {
+					public boolean matches(Account entity) {
+						return username.equals(entity.getUsername());
+					}
+				};
+			}
+			
 		};
 	}
 

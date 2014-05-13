@@ -1,21 +1,49 @@
 package com.outbidme.persistance;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public enum InMemPersistanceManager implements PersistanceManager{
 
 	Instance;
 	
+	@SuppressWarnings("rawtypes")
+	private  Map<Class,  Set<Object>> inMemoryDB = new HashMap<Class, Set<Object>>();
+
 	
-	private Set<Object> inMemoryDB = new HashSet<Object>();
-
+	
 	public boolean contains(Object entity) {
-		return inMemoryDB.contains(entity);
+		Set<Object> entityTable = inMemoryDB.get(entity.getClass());
+		if(entityTable != null)
+		   return entityTable.contains(entity);
+	  return false;
 	}
 
+	
 	public void persist(Object entity) {
-		inMemoryDB.add(entity);
+		Set<Object> entityTable = inMemoryDB.get(entity.getClass());
+		if(entityTable == null){
+		   entityTable = new HashSet<Object>();
+		   inMemoryDB.put(entity.getClass(), entityTable);
+		}
+		entityTable.add(entity);
 	}
+
+	
+	@SuppressWarnings("unchecked")
+	public <T> T findEntity(EntityMatcher<T> matcher, Class<T> clazz) {
+		Set<Object> entityTable = inMemoryDB.get(clazz);
+		if(entityTable != null){
+			for(Object entity : entityTable){
+				if(matcher.matches((T) entity)){
+				   return (T) entity;
+				}
+			}
+		}
+		return null;
+	}
+
 	 
 }
