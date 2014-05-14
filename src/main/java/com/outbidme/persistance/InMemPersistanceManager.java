@@ -22,12 +22,15 @@ public enum InMemPersistanceManager implements PersistanceManager{
 	}
 
 	
-	public void persist(Object entity) {
+	public void persist(Object entity) throws PersistenceException{
 		Set<Object> entityTable = inMemoryDB.get(entity.getClass());
 		if(entityTable == null){
 		   entityTable = new HashSet<Object>();
 		   inMemoryDB.put(entity.getClass(), entityTable);
 		}
+        if (entityTable.contains(entity)){
+            throw new PersistenceException();
+        }
 		entityTable.add(entity);
 	}
 
