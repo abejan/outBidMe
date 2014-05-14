@@ -2,6 +2,7 @@ package com.outbidme.persistance;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -46,6 +47,21 @@ public enum InMemPersistanceManager implements PersistanceManager{
 			}
 		}
 		return null;
+	}
+
+
+	public <T> void removeEntity(EntityMatcher<T> matcher, Class<T> clazz) {
+		Set<Object> entityTable = inMemoryDB.get(clazz);
+		if(entityTable != null){
+			Iterator<T> it = (Iterator<T>) entityTable.iterator();
+			while(it.hasNext()){
+				T entity = it.next();
+				if(matcher.matches((T) entity)){
+				   it.remove();
+				   return;
+				}
+			}
+		}
 	}
 
 	 

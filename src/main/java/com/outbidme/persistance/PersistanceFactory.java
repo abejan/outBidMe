@@ -11,7 +11,9 @@ public class PersistanceFactory {
     }
 
 	public static AccountGateway getAccountGateway() {
+		
 		return new AccountGateway() {
+			
 			public void persist(Account account) throws PersistenceException {
 				getPersistanceManager().persist(account);
 			}
@@ -26,6 +28,10 @@ public class PersistanceFactory {
 						return username.equals(entity.getUsername());
 					}
 				};
+			}
+
+			public void removeAccountWithUsername(String username) {
+				getPersistanceManager().removeEntity(getAccountMatcher(username), Account.class);
 			}
 			
 		};

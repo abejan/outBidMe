@@ -24,7 +24,7 @@ public class PersistanceTest extends AbstractTest{
 	}
 
     @Test
-    public void can_add_twice_account(){
+    public void can_not_add_same_account_twice(){
         Account account1 = new Account("aaa", "111");
         Account account2 = new Account("aaa", "111");
         boolean secondPersistExc = false;
@@ -40,4 +40,19 @@ public class PersistanceTest extends AbstractTest{
         }
         assertTrue(secondPersistExc);
     }
+    
+    @Test
+    public void can_remove_account_if_admin(){
+    	 String username = "aaa";
+    	 Account account = new Account(username, "111");
+    	 try {
+			accountGateway.persist(account);
+		} catch (PersistenceException e) {
+			fail();
+		}
+    	 assertTrue(getPersistanceManager().contains(account));
+    	 accountGateway.removeAccountWithUsername(username);
+    	 assertTrue(!getPersistanceManager().contains(account));
+    }
+    
 }

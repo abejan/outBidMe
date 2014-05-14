@@ -37,4 +37,11 @@ public class Account {
     public int hashCode() {
         return username != null ? username.hashCode() : 0;
     }
+
+	@Override
+	public String toString() {
+		return "Account [username=" + username + "]";
+	}
+    
+    
 }

@@ -9,4 +9,6 @@ public interface AccountGateway {
 
 	public Account findAccountByUserName(String username);
 
+	public void removeAccountWithUsername(String string);
+
 }

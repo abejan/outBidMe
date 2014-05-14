@@ -11,5 +11,7 @@ public interface  PersistanceManager {
 
 	public <T> T findEntity(EntityMatcher<T> matcher, Class<T> clazz);
 
+	public <T> void removeEntity(EntityMatcher<T> matcher, Class<T> clazz);
+
 	
 }
