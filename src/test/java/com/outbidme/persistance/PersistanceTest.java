@@ -42,7 +42,7 @@ public class PersistanceTest extends AbstractTest{
     }
     
     @Test
-    public void can_remove_account_if_admin(){
+    public void can_remove_account_by_username(){
     	 String username = "aaa";
     	 Account account = new Account(username, "111");
     	 try {
