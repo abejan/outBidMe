@@ -25,7 +25,7 @@ public class AuthenticationService {
         return isPasswordValid;
     }
 
-    public boolean isLoggedIn(String username) {
+    public boolean isLoggedIn(String username) { 
         for (Account account : loggedAccounts) {
             if (accountMatches(username, account)){
                 return true;

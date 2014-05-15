@@ -43,5 +43,4 @@ public class Account {
 		return "Account [username=" + username + "]";
 	}
     
-    
 }

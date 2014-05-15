@@ -43,7 +43,7 @@ public class PersistanceTest extends AbstractTest{
     
     @Test
     public void can_remove_account_by_username(){
-    	 String username = "aaa";
+    	 String username = "test_remove";
     	 Account account = new Account(username, "111");
     	 try {
 			accountGateway.persist(account);
@@ -54,5 +54,4 @@ public class PersistanceTest extends AbstractTest{
     	 accountGateway.removeAccountWithUsername(username);
     	 assertTrue(!getPersistanceManager().contains(account));
     }
-    
 }
