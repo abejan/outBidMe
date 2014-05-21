@@ -8,6 +8,8 @@ import com.outbidme.general.AbstractTest;
 import org.junit.Test;
 
 import com.outbidme.general.TestUtils;
+import com.outbidme.model.authentication.Account;
+import com.outbidme.model.authentication.AuthenticationService;
 
 
 public class AuthenticationTest extends AbstractTest{
@@ -73,4 +75,12 @@ public class AuthenticationTest extends AbstractTest{
         assertTrue(authenticationService.logout(TestUtils.TEST_USERNAME));
         assertFalse(authenticationService.isLoggedIn(TestUtils.TEST_USERNAME));
     }
+    
+    @Test
+    public void can_receive_user_confirmation_after_succesful_login(){
+    	
+    }
+    
+    
+    
 }

@@ -1,6 +1,6 @@
 package com.outbidme.persistance;
 
-import com.outbidme.authentication.Account;
+import com.outbidme.model.authentication.Account;
 import com.outbidme.persistance.authentication.AccountGateway;
 
 public class PersistanceFactory {

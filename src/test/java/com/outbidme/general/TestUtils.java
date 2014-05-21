@@ -1,6 +1,6 @@
 package com.outbidme.general;
 
-import com.outbidme.authentication.Account;
+import com.outbidme.model.authentication.Account;
 
 public class TestUtils {
 

@@ -1,4 +1,4 @@
-package com.outbidme.authentication;
+package com.outbidme.model.authentication;
 
 public class Account {
 	private String password;
@@ -9,7 +9,7 @@ public class Account {
 		this.username = username;
 	}
 	
-	public Object getUsername() {
+	public String getUsername() {
 		return username;
 	}
 	

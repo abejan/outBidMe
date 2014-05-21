@@ -1,6 +1,6 @@
 package com.outbidme.persistance.authentication;
 
-import com.outbidme.authentication.Account;
+import com.outbidme.model.authentication.Account;
 import com.outbidme.persistance.PersistenceException;
 
 public interface AccountGateway {

@@ -1,13 +1,15 @@
 package com.outbidme.general;
 
-import com.outbidme.authentication.Account;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.BeforeClass;
+
+import com.outbidme.model.authentication.Account;
 import com.outbidme.persistance.PersistanceFactory;
+import com.outbidme.persistance.PersistanceFactoryMock;
 import com.outbidme.persistance.PersistanceManager;
 import com.outbidme.persistance.PersistenceException;
 import com.outbidme.persistance.authentication.AccountGateway;
-import org.junit.BeforeClass;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by anita on 5/13/2014.
@@ -22,7 +24,7 @@ public class AbstractTest {
             return;
         }
         isSetup = true;
-        persistanceManager = PersistanceFactory.getPersistanceManager();
+        persistanceManager = PersistanceFactoryMock.getPersistanceManager();
         saveAccount(TestUtils.TEST_USERNAME, TestUtils.TEST_PASSWORD); //this is an implicit test of persisting an account
     }
 

@@ -1,16 +1,15 @@
 package com.outbidme.persistance;
 
 
-import com.outbidme.general.AbstractTest;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.outbidme.authentication.Account;
+import org.junit.Test;
+
+import com.outbidme.general.AbstractTest;
 import com.outbidme.general.TestUtils;
+import com.outbidme.model.authentication.Account;
 import com.outbidme.persistance.authentication.AccountGateway;
 
 public class PersistanceTest extends AbstractTest{
