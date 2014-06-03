@@ -1,5 +1,8 @@
 package com.outbidme.persistance;
 
+import com.outbidme.configuration.SystemConfiguration;
+import static  com.outbidme.configuration.SystemConfiguration.Type;
+
 import com.outbidme.model.authentication.Account;
 import com.outbidme.persistance.authentication.AccountGateway;
 
@@ -7,7 +10,7 @@ public class PersistanceFactory {
 
 
     public static PersistanceManager getPersistanceManager() {
-        return InMemPersistanceManager.Instance;
+        return (PersistanceManager) SystemConfiguration.Instance.getComponent(Type.Persistance);
     }
 
 	public static AccountGateway getAccountGateway() {

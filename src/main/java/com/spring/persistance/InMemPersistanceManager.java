@@ -1,4 +1,4 @@
-package com.outbidme.persistance;
+package com.spring.persistance;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -6,12 +6,25 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-public enum InMemPersistanceManager implements PersistanceManager{
+import com.outbidme.model.authentication.Account;
+import com.outbidme.persistance.EntityMatcher;
+import com.outbidme.persistance.PersistanceManager;
+import com.outbidme.persistance.PersistenceException;
+
+
+/**
+ * In memory database mock.
+ */
+public enum InMemPersistanceManager implements PersistanceManager {
 
 	Instance;
 	
 	@SuppressWarnings("rawtypes")
 	private  Map<Class,  Set<Object>> inMemoryDB = new HashMap<Class, Set<Object>>();
+	
+	{
+		storeDefaults();
+	}
 
 	
 	
@@ -22,7 +35,6 @@ public enum InMemPersistanceManager implements PersistanceManager{
 	  return false;
 	}
 
-	
 	public void persist(Object entity) throws PersistenceException{
 		Set<Object> entityTable = inMemoryDB.get(entity.getClass());
 		if(entityTable == null){
@@ -34,7 +46,6 @@ public enum InMemPersistanceManager implements PersistanceManager{
         }
 		entityTable.add(entity);
 	}
-
 	
 	@SuppressWarnings("unchecked")
 	public <T> T findEntity(EntityMatcher<T> matcher, Class<T> clazz) {
@@ -48,7 +59,6 @@ public enum InMemPersistanceManager implements PersistanceManager{
 		}
 		return null;
 	}
-
 
 	public <T> void removeEntity(EntityMatcher<T> matcher, Class<T> clazz) {
 		Set<Object> entityTable = inMemoryDB.get(clazz);
@@ -64,5 +74,11 @@ public enum InMemPersistanceManager implements PersistanceManager{
 		}
 	}
 
-	 
+	private void storeDefaults() {
+		//Default Admin account
+		inMemoryDB.put(Account.class, new HashSet<Object>(){{
+			add(new Account("admin", "123"));
+		}});
+	}	 
+
 }

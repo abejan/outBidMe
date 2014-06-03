@@ -17,5 +17,4 @@ public class LoginPresenter {
 												: AuthenticationMessages.FAIL.getMessage());
 	}
 
-	
 }

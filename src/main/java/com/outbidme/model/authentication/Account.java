@@ -1,5 +1,6 @@
 package com.outbidme.model.authentication;
 
+
 public class Account {
 	private String password;
 	private String username;
