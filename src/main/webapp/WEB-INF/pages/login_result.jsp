@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>${resultMessage}</h1>
-	<p>${homePageLink}</p>
+	<p>${homePageLink}
 	<%
 	   Boolean isSuccesful = (Boolean) session.getAttribute("isAuthenticated");
 	   if(!isSuccesful){
@@ -17,5 +17,6 @@
 	<%
 	   }
 	%>
+	</p>
 </body>
 </html>
