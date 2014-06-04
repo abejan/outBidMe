@@ -6,15 +6,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping(ResourceConstants.HOMEPAGE_URL)
 public class HomePageController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	private ModelAndView homePage(){
-		ModelAndView mav = new ModelAndView("home");
-		mav.addObject("loginPageLink", "<a href = \" login.jsp \" >Click to sign in</a>");
+		ModelAndView mav = new ModelAndView(ResourceConstants.HOMEPAGE_VIEW);
+		mav.addObject("loginPageLink", JSPUtils.buildHREF(ResourceConstants.LOGINPAGE_HREF, "Click to sign in"));
 		return mav;
 	}
-	
-	
+
 }

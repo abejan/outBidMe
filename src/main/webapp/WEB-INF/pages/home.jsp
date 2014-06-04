@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>Welcome to OutBidMe</h1>
-	<p>$(loginPageLink)</p>
+	<p>${loginPageLink}</p>
 	
 </body>
 </html>

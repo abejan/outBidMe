@@ -8,12 +8,12 @@
 </head>
 <body>
 	<h1>${resultMessage}</h1>
-	<a href> Return to home page</a>
+	<p>${homePageLink}</p>
 	<%
 	   Boolean isSuccesful = (Boolean) session.getAttribute("isAuthenticated");
 	   if(!isSuccesful){
 	%>
-	   <a href=$(homePageLink)> Try again </a>
+	   ${loginPageLink}
 	<%
 	   }
 	%>
