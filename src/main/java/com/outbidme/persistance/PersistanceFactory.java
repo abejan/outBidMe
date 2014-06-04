@@ -9,9 +9,6 @@ import com.outbidme.persistance.product.ProductGateway;
 
 public class PersistanceFactory {
 
-
-    private static ProductGateway productGateway;
-
     public static PersistanceManager getPersistanceManager() {
         return (PersistanceManager) SystemConfiguration.Instance.getComponent(Type.Persistance);
     }
@@ -46,10 +43,10 @@ public class PersistanceFactory {
     public static ProductGateway getProductGateway() {
         return new ProductGateway() {
 
-            public void persist(Product product) throws PersistenceException {
-                getPersistanceManager().persist(product);
-            }
-
+        	public void persist(Product product) throws PersistenceException {
+				getPersistanceManager().persist(product);
+			}
+        	
             public double getNextValidId() {
                 return getPersistanceManager().getEntityCount(Product.class) + 1;
             }
@@ -61,6 +58,7 @@ public class PersistanceFactory {
                     }
                 }, Product.class);
             }
+
         };
     }
 }

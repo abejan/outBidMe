@@ -1,4 +1,4 @@
-package com.outbidme.persistance;
+package com.outbidme.authentication;
 
 
 import static org.junit.Assert.assertEquals;
@@ -10,9 +10,11 @@ import org.junit.Test;
 import com.outbidme.general.AbstractTest;
 import com.outbidme.general.TestUtils;
 import com.outbidme.model.authentication.Account;
+import com.outbidme.persistance.PersistanceFactory;
+import com.outbidme.persistance.PersistenceException;
 import com.outbidme.persistance.authentication.AccountGateway;
 
-public class PersistanceTest extends AbstractTest{
+public class AuthenticationPersistanceTest extends AbstractTest{
     private static final AccountGateway accountGateway = PersistanceFactory.getAccountGateway();
 
 	@Test
