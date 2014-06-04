@@ -13,10 +13,6 @@ import com.spring.persistance.InMemPersistanceManager;
  */
 public class ApplicationStartupListener extends ContextLoaderListener{
 
-	public ApplicationStartupListener(){
-		System.out.println("test");
-	}
-	
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
 		SystemConfiguration.Instance

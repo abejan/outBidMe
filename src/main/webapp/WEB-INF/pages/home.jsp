@@ -4,18 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Login result Page</title>
+<title>OutBidMe Home Pagee</title>
 </head>
 <body>
-	<h1>${resultMessage}</h1>
-	<a href> Return to home page</a>
-	<%
-	   Boolean isSuccesful = (Boolean) session.getAttribute("isAuthenticated");
-	   if(!isSuccesful){
-	%>
-	   <a href=$(homePageLink)> Try again </a>
-	<%
-	   }
-	%>
+	<h1>Welcome to OutBidMe</h1>
+	<p>$(loginPageLink)</p>
+	
 </body>
 </html>
