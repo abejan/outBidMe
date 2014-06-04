@@ -4,10 +4,14 @@ import com.outbidme.configuration.SystemConfiguration;
 import static  com.outbidme.configuration.SystemConfiguration.Type;
 
 import com.outbidme.model.authentication.Account;
+import com.outbidme.model.product.Product;
 import com.outbidme.persistance.authentication.AccountGateway;
+import com.outbidme.persistance.product.ProductGateway;
 
 public class PersistanceFactory {
 
+
+    private static ProductGateway productGateway;
 
     public static PersistanceManager getPersistanceManager() {
         return (PersistanceManager) SystemConfiguration.Instance.getComponent(Type.Persistance);
@@ -40,4 +44,28 @@ public class PersistanceFactory {
 		};
 	}
 
+    public static ProductGateway getProductGateway() {
+        return new ProductGateway() {
+
+            @Override
+            public void persist(Product product) throws PersistenceException {
+                getPersistanceManager().persist(product);
+            }
+
+            @Override
+            public double getNextValidId() {
+                return getPersistanceManager().getEntityCount(Product.class) + 1;
+            }
+
+            @Override
+            public Product findEntity(double id) {
+                return getPersistanceManager().findEntity(new EntityMatcher<Product>() {
+                    @Override
+                    public boolean matches(Product entity) {
+                        return entity.getId() == id;
+                    }
+                }, Product.class);
+            }
+        };
+    }
 }

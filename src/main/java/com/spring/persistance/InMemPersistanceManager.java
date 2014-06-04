@@ -74,6 +74,10 @@ public enum InMemPersistanceManager implements PersistanceManager {
 		}
 	}
 
+    public <T> double getEntityCount(Class<T> clazz){
+        return 0;
+    }
+
 	private void storeDefaults() {
 		//Default Admin account
 		inMemoryDB.put(Account.class, new HashSet<Object>(){{

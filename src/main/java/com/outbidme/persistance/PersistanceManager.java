@@ -1,5 +1,7 @@
 package com.outbidme.persistance;
 
+import com.outbidme.model.product.Product;
+
 /**
  * Gateway to the storage layer.
  */
@@ -13,5 +15,5 @@ public interface  PersistanceManager {
 
 	public <T> void removeEntity(EntityMatcher<T> matcher, Class<T> clazz);
 
-	
+    public <T> double getEntityCount(Class<T> clazz);
 }
