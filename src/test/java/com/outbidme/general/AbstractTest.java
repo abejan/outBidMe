@@ -2,6 +2,7 @@ package com.outbidme.general;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 
 import com.outbidme.configuration.SystemConfiguration;
@@ -12,6 +13,7 @@ import com.outbidme.persistance.PersistanceManager;
 import com.outbidme.persistance.PersistenceException;
 import com.outbidme.persistance.authentication.AccountGateway;
 import com.spring.persistance.InMemPersistanceManager;
+import org.mockito.MockitoAnnotations;
 
 /**
  * Created by anita on 5/13/2014.
@@ -19,6 +21,11 @@ import com.spring.persistance.InMemPersistanceManager;
 public class AbstractTest {
     private static PersistanceManager persistanceManager;
     private static boolean isSetup = false;
+
+    @Before
+    public void initMockito(){
+        MockitoAnnotations.initMocks(this);
+    }
 
     @BeforeClass
     public static void setup(){
@@ -31,6 +38,8 @@ public class AbstractTest {
         
         persistanceManager = PersistanceFactory.getPersistanceManager();
         saveAccount(TestUtils.TEST_USERNAME, TestUtils.TEST_PASSWORD); //this is an implicit test of persisting an account
+
+
     }
 
 	private static void registerSystemMocks() {
