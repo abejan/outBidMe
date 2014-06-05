@@ -7,16 +7,13 @@
 <title>Login result Page</title>
 </head>
 <body>
-	<h1>${resultMessage}</h1>
-	<p>${homePageLink}
-	<%
-	   Boolean isSuccesful = (Boolean) session.getAttribute("isAuthenticated");
-	   if(!isSuccesful){
-	%>
-	   ${loginPageLink}
-	<%
-	   }
-	%>
+	<p>
+        <div>
+            <h1>Welcome, ${userName}</h1>
+            <a href="${logout}?username=${userName}" id="logout">Logout</a>
+        </div>
+
+        <p> <a href="${homePageLink}">Return to home page</a> </p>
 	</p>
 </body>
 </html>

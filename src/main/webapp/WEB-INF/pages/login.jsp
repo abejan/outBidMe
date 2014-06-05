@@ -10,10 +10,10 @@
 
 <fieldset name="Login">
     <legend><h2>Sign In</h2></legend>
-    <form method="POST" action="sign-in"">
+    <form method="POST" action="sign-in">
         <p>
             <label for="username">Username</label>
-            <input type="text" name="username" required="required" placeholder="">
+            <input type="text" name="username" required="required" placeholder="username">
         </p>
         <p>
             <label for="password">Password</label>

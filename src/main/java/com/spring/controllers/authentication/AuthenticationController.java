@@ -3,44 +3,62 @@ package com.spring.controllers.authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.outbidme.presentation.authentication.AuthenticationMessages;
 import com.outbidme.presentation.authentication.ILoginView;
 import com.outbidme.presentation.authentication.LoginPresenter;
-import com.spring.controllers.general.JSPUtils;
 import com.spring.controllers.general.ResourceConstants;
 
 @Controller
-@RequestMapping(ResourceConstants.LOGINPAGE_URL)
 @SessionAttributes("isAuthenticated")
 public class AuthenticationController implements ILoginView{
 
 	private String resultMessage;
+    private LoginPresenter loginPresenter = new LoginPresenter(this);
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String loginStart(){
 		return ResourceConstants.LOGINPAGE_VIEW;
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = ResourceConstants.LOGINPAGE_URL, method = RequestMethod.POST)
 	public ModelAndView submitCredentials(String username, String password){
-		LoginPresenter loginPresenter = new LoginPresenter(this);
+
 		loginPresenter.loginAction(username, password);
 		
-		ModelAndView mav = new ModelAndView(ResourceConstants.LOGIN_RESULT_PAGE_VIEW);
-		mav.addObject("resultMessage", resultMessage);
-		mav.addObject("isAuthenticated" ,resultMessage.equals(AuthenticationMessages.SUCCESS.getMessage()) ? 
-									Boolean.TRUE : Boolean.FALSE);
-		mav.addObject("homePageLink", JSPUtils.buildHREF(ResourceConstants.HOMEPAGE_HREF, "Return to home page"));
-		mav.addObject("loginPageLink", JSPUtils.buildHREF(ResourceConstants.LOGINPAGE_HREF, "Try again"));
-		
-		return mav;
+
+        boolean isAuthenticated = resultMessage.equals(AuthenticationMessages.LOGIN_SUCCESS.getMessage()) ?
+                Boolean.TRUE : Boolean.FALSE;
+        if (isAuthenticated) {
+            ModelAndView mav = new ModelAndView(ResourceConstants.LOGIN_RESULT_PAGE_VIEW);
+            mav.addObject("resultMessage", resultMessage);
+            mav.addObject("userName", username);
+            mav.addObject("homePageLink", ResourceConstants.HOMEPAGE_HREF);
+            mav.addObject("logout", ResourceConstants.LOGOUTPAGE_VIEW);
+            return mav;
+        } else {
+            return new ModelAndView(ResourceConstants.HOMEPAGE_VIEW);
+        }
 	}
-	
-	
-	public void setDisplayMessage(String message) {
+
+    @RequestMapping(value = ResourceConstants.LOGOUTPAGE_VIEW, method = RequestMethod.GET)
+    public ModelAndView logout(@RequestParam String username){
+        loginPresenter.logoutAction(username);
+        boolean loggedOut = resultMessage.equals(AuthenticationMessages.LOGOUT_SUCCESS.getMessage()) ?
+                Boolean.TRUE : Boolean.FALSE;
+        if (loggedOut) {
+            ModelAndView mav = new ModelAndView(ResourceConstants.HOMEPAGE_VIEW);
+            mav.addObject("resultMessage", resultMessage);
+            return mav;
+        } else {
+            return new ModelAndView(ResourceConstants.LOGIN_RESULT_PAGE_VIEW);
+        }
+    }
+
+    public void setDisplayMessage(String message) {
 		  this.resultMessage = message;
 	}
 	
