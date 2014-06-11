@@ -19,7 +19,7 @@ public class AuthenticationController implements ILoginView{
 	private String resultMessage;
     private LoginPresenter loginPresenter = new LoginPresenter(this);
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = ResourceConstants.LOGINPAGE_URL, method = RequestMethod.GET)
 	public String loginStart(){
 		return ResourceConstants.LOGINPAGE_VIEW;
 	}
@@ -37,21 +37,21 @@ public class AuthenticationController implements ILoginView{
             mav.addObject("resultMessage", resultMessage);
             mav.addObject("userName", username);
             mav.addObject("homePageLink", ResourceConstants.HOMEPAGE_HREF);
-            mav.addObject("logout", ResourceConstants.LOGOUTPAGE_VIEW);
+            mav.addObject("logoutLink", ResourceConstants.LOGOUTPAGE_HREF);
             return mav;
         } else {
             return new ModelAndView(ResourceConstants.HOMEPAGE_VIEW);
         }
 	}
 
-    @RequestMapping(value = ResourceConstants.LOGOUTPAGE_VIEW, method = RequestMethod.GET)
+    @RequestMapping(value = ResourceConstants.LOGOUTPAGE_URL, method = RequestMethod.GET)
     public ModelAndView logout(@RequestParam String username){
         loginPresenter.logoutAction(username);
         boolean loggedOut = resultMessage.equals(AuthenticationMessages.LOGOUT_SUCCESS.getMessage()) ?
                 Boolean.TRUE : Boolean.FALSE;
         if (loggedOut) {
             ModelAndView mav = new ModelAndView(ResourceConstants.HOMEPAGE_VIEW);
-            mav.addObject("resultMessage", resultMessage);
+            mav.addObject("loginPageLink", ResourceConstants.LOGINPAGE_HREF);
             return mav;
         } else {
             return new ModelAndView(ResourceConstants.LOGIN_RESULT_PAGE_VIEW);

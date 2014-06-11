@@ -12,7 +12,7 @@ public class HomePageController {
 	@RequestMapping(method = RequestMethod.GET)
 	private ModelAndView homePage(){
 		ModelAndView mav = new ModelAndView(ResourceConstants.HOMEPAGE_VIEW);
-		mav.addObject("loginPageLink", JSPUtils.buildHREF(ResourceConstants.LOGINPAGE_HREF, "Click to sign in"));
+		mav.addObject("loginPageLink", ResourceConstants.LOGINPAGE_HREF);
 		return mav;
 	}
 

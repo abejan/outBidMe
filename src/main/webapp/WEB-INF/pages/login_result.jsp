@@ -10,10 +10,8 @@
 	<p>
         <div>
             <h1>Welcome, ${userName}</h1>
-            <a href="${logout}?username=${userName}" id="logout">Logout</a>
+            <a href="${logoutLink}?username=${userName}">Logout</a>
         </div>
-
-        <p> <a href="${homePageLink}">Return to home page</a> </p>
 	</p>
 </body>
 </html>

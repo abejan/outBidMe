@@ -13,9 +13,12 @@ public final class ResourceConstants {
 	
 	public static final String LOGINPAGE_VIEW = "login";
 	public static final String LOGINPAGE_URL  = "/sign-in";
-    public static final String LOGOUTPAGE_VIEW = "logout";
 	public static final String LOGINPAGE_HREF  = "sign-in";
 	public static final String LOGINPAGE_FILE = "login.jsp";
+
+	public static final String LOGOUTPAGE_VIEW = "logout";
+	public static final String LOGOUTPAGE_HREF = LOGOUTPAGE_VIEW;
+	public static final String LOGOUTPAGE_URL  = "/logout";  
 	
 	public static final String LOGIN_RESULT_PAGE_VIEW = "login_result";
 	public static final String LOGIN_RESULT_PAGE_URL  = "/login_result.jsp";
