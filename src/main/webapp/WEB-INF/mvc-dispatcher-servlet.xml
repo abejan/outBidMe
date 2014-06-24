@@ -18,6 +18,8 @@
   		 <property name="suffix" value=".jsp" />
     </bean>
     
+    <mvc:resources mapping="css/bootstrap/css/**" location="/WEB-INF/pages/css/bootstrap/css/" />
+    
     <!-- Custom bean -->
     <!--bean id="loginPresenter" class="com.outbidme.presentation.authentication.LoginPresenter" /-->
     <!--bean id="homePageController" class="com.spring.controllers.general.HomePageController">
