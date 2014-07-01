@@ -1,16 +1,15 @@
 package com.outbidme.presentation;
 
-import com.outbidme.general.AbstractTest;
-import com.outbidme.presentation.authentication.AuthenticationMessages;
-import org.junit.Test;
+import static org.mockito.Mockito.verify;
 
-import com.outbidme.general.TestUtils;
-import com.outbidme.presentation.authentication.ILoginView;
-import com.outbidme.presentation.authentication.LoginPresenter;
+import org.junit.Test;
 import org.mockito.Mock;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.verify;
+import com.outbidme.general.AbstractTest;
+import com.outbidme.general.TestUtils;
+import com.outbidme.presentation.authentication.AuthenticationMessages;
+import com.outbidme.presentation.authentication.ILoginView;
+import com.outbidme.presentation.authentication.LoginPresenter;
 
 public class LoginInterfaceTest extends AbstractTest {
 

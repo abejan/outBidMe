@@ -1,8 +1,11 @@
 package com.spring.persistance;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -42,24 +45,25 @@ public enum InMemPersistanceManager implements PersistanceManager {
 		   inMemoryDB.put(entity.getClass(), entityTable);
 		}
         if (entityTable.contains(entity)){
-            throw new PersistenceException();
+            throw new PersistenceException("Entity " + entity + " already exists in the table");
         }
 		entityTable.add(entity);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <T> T findEntity(EntityMatcher<T> matcher, Class<T> clazz) {
+	public <T> Collection<T> findEntities(EntityMatcher<T> matcher, Class<T> clazz) {
+		List<T> results = new ArrayList<T>(4);
 		Set<Object> entityTable = inMemoryDB.get(clazz);
 		if(entityTable != null){
 			for(Object entity : entityTable){
 				if(matcher.matches((T) entity)){
-				   return (T) entity;
+				   results.add((T) entity);
 				}
 			}
 		}
-		return null;
-	}
-
+		return results;
+	}	
+	
 	public <T> void removeEntity(EntityMatcher<T> matcher, Class<T> clazz) {
 		Set<Object> entityTable = inMemoryDB.get(clazz);
 		if(entityTable != null){
@@ -74,8 +78,12 @@ public enum InMemPersistanceManager implements PersistanceManager {
 		}
 	}
 
-    public <T> double getEntityCount(Class<T> clazz){
-        return 0;
+    public <T> int getEntityCount(Class<T> clazz){
+    	Set<Object> entityTable = inMemoryDB.get(clazz);
+		if(entityTable != null)
+		   return entityTable.size();
+		else
+		   return 0;
     }
 
 	private void storeDefaults() {
@@ -83,6 +91,6 @@ public enum InMemPersistanceManager implements PersistanceManager {
 		inMemoryDB.put(Account.class, new HashSet<Object>(){{
 			add(new Account("admin", "123"));
 		}});
-	}	 
+	}
 
 }

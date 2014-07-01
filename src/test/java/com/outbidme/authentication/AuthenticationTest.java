@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import com.outbidme.general.TestUtils;
 import com.outbidme.model.authentication.Account;
-import com.outbidme.model.authentication.AuthenticationService;
+import com.outbidme.service.AuthenticationService;
 
 
 public class AuthenticationTest extends AbstractTest{

@@ -1,5 +1,6 @@
-package com.outbidme.model.authentication;
+package com.outbidme.service;
 
+import com.outbidme.model.authentication.Account;
 import com.outbidme.persistance.PersistanceFactory;
 import com.outbidme.persistance.authentication.AccountGateway;
 

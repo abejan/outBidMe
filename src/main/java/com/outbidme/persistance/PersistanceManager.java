@@ -1,6 +1,7 @@
 package com.outbidme.persistance;
 
-import com.outbidme.model.product.Product;
+import java.util.Collection;
+
 
 /**
  * Gateway to the storage layer.
@@ -11,9 +12,10 @@ public interface  PersistanceManager {
 	
 	public boolean contains(Object entity);
 
-	public <T> T findEntity(EntityMatcher<T> matcher, Class<T> clazz);
-
+	public <T> Collection<T> findEntities(EntityMatcher<T> matcher, Class<T> clazz);
+	
 	public <T> void removeEntity(EntityMatcher<T> matcher, Class<T> clazz);
 
-    public <T> double getEntityCount(Class<T> clazz);
+    public <T> int getEntityCount(Class<T> clazz) ;
+
 }

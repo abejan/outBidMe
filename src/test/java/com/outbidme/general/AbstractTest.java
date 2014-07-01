@@ -4,16 +4,18 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.mockito.MockitoAnnotations;
 
 import com.outbidme.configuration.SystemConfiguration;
 import com.outbidme.configuration.SystemConfiguration.Type;
 import com.outbidme.model.authentication.Account;
+import com.outbidme.model.product.Product;
 import com.outbidme.persistance.PersistanceFactory;
 import com.outbidme.persistance.PersistanceManager;
 import com.outbidme.persistance.PersistenceException;
 import com.outbidme.persistance.authentication.AccountGateway;
+import com.outbidme.persistance.product.ProductGateway;
 import com.spring.persistance.InMemPersistanceManager;
-import org.mockito.MockitoAnnotations;
 
 /**
  * Created by anita on 5/13/2014.
@@ -37,10 +39,21 @@ public class AbstractTest {
         registerSystemMocks();
         
         persistanceManager = PersistanceFactory.getPersistanceManager();
-        saveAccount(TestUtils.TEST_USERNAME, TestUtils.TEST_PASSWORD); //this is an implicit test of persisting an account
-
+        saveAccount(TestUtils.TEST_USERNAME, TestUtils.TEST_PASSWORD);
+        saveProduct();
 
     }
+
+	private static void saveProduct() {
+	    ProductGateway productGateway = PersistanceFactory.getProductGateway();
+	    Product product = TestUtils.getDefaultProductInstance();
+        try {
+            productGateway.persist(product);
+        } catch (PersistenceException e) {
+            throw new AssertionError(e.getMessage());
+        }
+        assertEquals(true, persistanceManager.contains(product));
+	}
 
 	private static void registerSystemMocks() {
 		SystemConfiguration.Instance.registerComponent(Type.Persistance, InMemPersistanceManager.Instance);

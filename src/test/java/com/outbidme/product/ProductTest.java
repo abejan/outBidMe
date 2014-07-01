@@ -1,15 +1,17 @@
 package com.outbidme.product;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import org.junit.Test;
+
 import com.outbidme.general.AbstractTest;
+import com.outbidme.general.TestUtils;
 import com.outbidme.model.product.Product;
 import com.outbidme.persistance.PersistanceFactory;
 import com.outbidme.persistance.PersistenceException;
 import com.outbidme.persistance.product.ProductGateway;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 public class ProductTest extends AbstractTest {
 
@@ -17,14 +19,24 @@ public class ProductTest extends AbstractTest {
 
     @Test
     public void can_create_product(){
-        double nextValidId = productGateway.getNextValidId();
+        double nextValidId = 0;
+		try {
+			nextValidId = productGateway.getNextValidId();
+		} catch (PersistenceException e) {
+			fail(e.getMessage());
+		}
         Product product = new Product(nextValidId);
         assertTrue(product != null);
     }
 
     @Test
     public void can_set_product_details(){
-        Product product = new Product(productGateway.getNextValidId());
+        Product product = null;
+		try {
+			product = new Product(productGateway.getNextValidId());
+		} catch (PersistenceException e) {
+			fail(e.getMessage());
+		}
         product.setName("Product Name");
         product.setDescription("Product Description");
         product.setPrice(45.6);
@@ -35,7 +47,12 @@ public class ProductTest extends AbstractTest {
 
     @Test
     public void can_persist_product(){
-        Product product = new Product(productGateway.getNextValidId());
+        Product product = null;
+		try {
+			product = new Product(productGateway.getNextValidId());
+		} catch (PersistenceException e) {
+			fail(e.getMessage());
+		}
         product.setName("Product Name");
         product.setDescription("Product Description");
         product.setPrice(45.6);
@@ -47,4 +64,19 @@ public class ProductTest extends AbstractTest {
         }
         assertTrue(productGateway.findEntity(product.getId()) != null);
     }
+    
+	@Test
+	public void can_product_time_expire(){
+	    Product expiredProduct = null;
+		try {
+			expiredProduct = new Product(productGateway.getNextValidId());
+		} catch (PersistenceException e) {
+			fail(e.getMessage());
+		}
+		
+		expiredProduct.setExpirationTime(TestUtils.getYesterdayTimeObj());
+		
+		assertTrue(expiredProduct.isExpired());
+	}
+    
 }

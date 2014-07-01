@@ -1,6 +1,6 @@
 package com.outbidme.presentation.authentication;
 
-import com.outbidme.model.authentication.AuthenticationService;
+import com.outbidme.service.AuthenticationService;
 
 public class LoginPresenter {
 
