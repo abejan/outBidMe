@@ -15,9 +15,9 @@ import com.outbidme.persistance.product.UserBidGateway;
  * Service class which performs user bidding operations.
  */
 public class BiddingService {
+    private ProductGateway productGateway = PersistanceFactory.getProductGateway();
 
 	public UserBid placeBid(String userName, int productId, double bidPrice) {
-		  ProductGateway productGateway = PersistanceFactory.getProductGateway();
 		  Product product = productGateway.findEntity(productId);
 		  if(!canCreateBid(bidPrice, product))
 		     return null;
@@ -41,8 +41,11 @@ public class BiddingService {
 	public UserBid getWinnerBid(int productId) {
 		UserBidGateway bidGateway = PersistanceFactory.getUserBidGateway();
 		List<UserBid> bidsForProduct = bidGateway.findAllBids(productId);
-		Collections.sort(bidsForProduct);
-		return bidsForProduct.iterator().next();
+        if (!bidsForProduct.isEmpty()) {
+		    Collections.sort(bidsForProduct);
+		    return bidsForProduct.iterator().next();
+        }
+        return null;
 	}
 	
 	private UserBid createAndPersistUserBid(String username, int productId, double bidPrice) throws PersistenceException {

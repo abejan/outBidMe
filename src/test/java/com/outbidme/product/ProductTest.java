@@ -66,7 +66,7 @@ public class ProductTest extends AbstractTest {
     }
     
 	@Test
-	public void can_product_time_expire(){
+	public void can_verify_if_product_time_is_expired(){
 	    Product expiredProduct = null;
 		try {
 			expiredProduct = new Product(productGateway.getNextValidId());

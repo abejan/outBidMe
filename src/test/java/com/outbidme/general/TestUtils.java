@@ -11,8 +11,9 @@ public class TestUtils {
 
 	public static final String TEST_USERNAME   = "john";
 	public static final String TEST_PASSWORD   = "123";
-	public static final double TEST_EXPIRED_PRODUCT_PRICE = 500;
-	public static final int    TEST_EXPIRED_PRODUCT_ID = 0;
+	public static final double TEST_PRODUCT_PRICE = 500;
+	public static final int TEST_PRODUCT_ID = 0;
+    public static final int TEST_EXPIRED_PRODUCT_ID = 1;
 
 	
 	public static Account getDefaultAccountInstance(){
@@ -20,13 +21,22 @@ public class TestUtils {
 	}
 	
 	public static Product getDefaultProductInstance(){
-		Product product = new Product(TEST_EXPIRED_PRODUCT_ID);
+		Product product = new Product(TEST_PRODUCT_ID);
 		product.setDescription("Just a test product");
 		product.setName("Test Product");
-		product.setPrice(TEST_EXPIRED_PRODUCT_PRICE);
-		product.setExpirationTime(getYesterdayTimeObj());
+		product.setPrice(TEST_PRODUCT_PRICE);
+		product.setExpirationTime(new Date());
 		return product;
 	}
+
+    public static Product getExpiredProductInstance(){
+        Product product = new Product(TEST_EXPIRED_PRODUCT_ID);
+        product.setDescription("Just a test product");
+        product.setName("Test Product");
+        product.setPrice(TEST_PRODUCT_PRICE);
+        product.setExpirationTime(getYesterdayTimeObj());
+        return product;
+    }
 
 	public static Date getYesterdayTimeObj() {
 		Calendar calendar = GregorianCalendar.getInstance();

@@ -40,13 +40,13 @@ public class AbstractTest {
         
         persistanceManager = PersistanceFactory.getPersistanceManager();
         saveAccount(TestUtils.TEST_USERNAME, TestUtils.TEST_PASSWORD);
-        saveProduct();
+        saveProduct(TestUtils.getDefaultProductInstance());
+        saveProduct(TestUtils.getExpiredProductInstance());
 
     }
 
-	private static void saveProduct() {
+	private static void saveProduct(Product product) {
 	    ProductGateway productGateway = PersistanceFactory.getProductGateway();
-	    Product product = TestUtils.getDefaultProductInstance();
         try {
             productGateway.persist(product);
         } catch (PersistenceException e) {
