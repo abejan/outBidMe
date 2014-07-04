@@ -7,9 +7,11 @@ import java.util.List;
 import com.outbidme.configuration.SystemConfiguration;
 import com.outbidme.configuration.SystemConfiguration.Type;
 import com.outbidme.model.authentication.Account;
+import com.outbidme.model.notifications.MailBox;
 import com.outbidme.model.product.Product;
 import com.outbidme.model.product.UserBid;
 import com.outbidme.persistance.authentication.AccountGateway;
+import com.outbidme.persistance.notifications.MailBoxGateway;
 import com.outbidme.persistance.product.ProductGateway;
 import com.outbidme.persistance.product.UserBidGateway;
 
@@ -30,10 +32,7 @@ public class PersistanceFactory {
 			public Account findAccountByUserName(String username) {
 				Collection<Account> results = getPersistanceManager().
 									findEntities(getAccountMatcher(username), Account.class);
-				if(!results.isEmpty())
-					return results.iterator().next();
-				
-				return null;
+				return getFirstElement(results);
 			}
 
 			private EntityMatcher<Account> getAccountMatcher(final String username) {
@@ -70,9 +69,7 @@ public class PersistanceFactory {
             public Product findEntity(final double id) {
                 Collection<Product> results = getPersistanceManager()
                 						.findEntities(getProductMatcher(id), Product.class);
-                if(!results.isEmpty())
-					return results.iterator().next();
-              return null;
+              return getFirstElement(results);
             }
 
 			private EntityMatcher<Product> getProductMatcher(final double id) {
@@ -117,10 +114,38 @@ public class PersistanceFactory {
 		};
 	}
 	
+	public static MailBoxGateway getMailBoxGateway() {
+		return new MailBoxGateway(){
+
+			@Override
+			public MailBox findMailBoxForAccount(final int accountId) {
+				Collection<MailBox> results = getPersistanceManager().findEntities(new EntityMatcher<MailBox>() {
+					@Override
+					public boolean matches(MailBox entity) {
+						return entity.getAccountId() == accountId;
+					}
+				}, MailBox.class);
+				return getFirstElement(results);
+			}
+
+			@Override
+			public void persist(MailBox mb) throws PersistenceException {
+				 getPersistanceManager().persist(mb);
+			}
+			
+		};
+	}
+	
 	private static <T> List<T> toList(Collection<T> collection) {
 		List<T> list = new ArrayList<T>();
 		for(T bid : collection)
 			list.add(bid);
 		return list;
+	}
+	
+	private static <T> T getFirstElement(Collection<T> collection) {
+		 if(!collection.isEmpty())
+				return collection.iterator().next();
+		 return null;
 	}
 }
