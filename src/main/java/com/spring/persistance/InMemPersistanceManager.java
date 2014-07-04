@@ -89,7 +89,7 @@ public enum InMemPersistanceManager implements PersistanceManager {
 	private void storeDefaults() {
 		//Default Admin account
 		inMemoryDB.put(Account.class, new HashSet<Object>(){{
-			add(new Account("admin", "123"));
+			add(new Account(0, "admin", "123"));
 		}});
 	}
 

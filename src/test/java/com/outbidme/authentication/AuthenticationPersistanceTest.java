@@ -15,6 +15,7 @@ import com.outbidme.persistance.PersistenceException;
 import com.outbidme.persistance.authentication.AccountGateway;
 
 public class AuthenticationPersistanceTest extends AbstractTest{
+	
     private static final AccountGateway accountGateway = PersistanceFactory.getAccountGateway();
 
 	@Test
@@ -26,8 +27,8 @@ public class AuthenticationPersistanceTest extends AbstractTest{
 
     @Test
     public void can_not_add_same_account_twice(){
-        Account account1 = new Account("aaa", "111");
-        Account account2 = new Account("aaa", "111");
+        Account account1 = new Account(accountGateway.getNextValidId(), "aaa", "111");
+        Account account2 = new Account(accountGateway.getNextValidId(), "aaa", "111");
         boolean secondPersistExc = false;
         try {
             accountGateway.persist(account1);
@@ -45,7 +46,7 @@ public class AuthenticationPersistanceTest extends AbstractTest{
     @Test
     public void can_remove_account_by_username(){
     	 String username = "test_remove";
-    	 Account account = new Account(username, "111");
+    	 Account account = new Account(accountGateway.getNextValidId(), username, "111");
     	 try {
 			accountGateway.persist(account);
 		} catch (PersistenceException e) {

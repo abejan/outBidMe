@@ -47,6 +47,11 @@ public class PersistanceFactory {
 			public void removeAccountWithUsername(String username) {
 				getPersistanceManager().removeEntity(getAccountMatcher(username), Account.class);
 			}
+
+			@Override
+			public int getNextValidId() {
+				return getPersistanceManager().getEntityCount(Account.class);
+			}
 			
 		};
 	}

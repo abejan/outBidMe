@@ -11,4 +11,6 @@ public interface AccountGateway {
 
 	public void removeAccountWithUsername(String string);
 
+	public int getNextValidId();
+
 }

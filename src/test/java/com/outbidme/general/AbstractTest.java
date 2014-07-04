@@ -61,7 +61,7 @@ public class AbstractTest {
 
     protected static void saveAccount(String username, String password){
         AccountGateway accountGateway = PersistanceFactory.getAccountGateway();
-        Account account = new Account(username, password);
+        Account account = new Account(accountGateway.getNextValidId(), username, password);
         try {
             accountGateway.persist(account);
         } catch (PersistenceException e) {

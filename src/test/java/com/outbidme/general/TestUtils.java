@@ -9,6 +9,7 @@ import com.outbidme.model.product.Product;
 
 public class TestUtils {
 
+	public static final int TEST_ACCOUNT_ID = 0;
 	public static final String TEST_USERNAME   = "john";
 	public static final String TEST_PASSWORD   = "123";
 	public static final double TEST_PRODUCT_PRICE = 500;
@@ -17,7 +18,7 @@ public class TestUtils {
 
 	
 	public static Account getDefaultAccountInstance(){
-		return new Account(TEST_USERNAME, TEST_PASSWORD);
+		return new Account(TEST_ACCOUNT_ID, TEST_USERNAME, TEST_PASSWORD);
 	}
 	
 	public static Product getDefaultProductInstance(){

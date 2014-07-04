@@ -2,12 +2,19 @@ package com.outbidme.model.authentication;
 
 
 public class Account {
+	
+	private int id;
 	private String password;
 	private String username;
 	
-	public Account(String username, String password) {
+	public Account(int id, String username, String password) {
+		this.id = id;
 		this.password = password;
 		this.username = username;
+	}
+	
+	public int getId() {
+		return id;
 	}
 	
 	public String getUsername() {
