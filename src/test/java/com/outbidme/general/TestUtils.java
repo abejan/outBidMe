@@ -10,8 +10,13 @@ import com.outbidme.model.product.Product;
 public class TestUtils {
 
 	public static final int TEST_ACCOUNT_ID = 0;
-	public static final String TEST_USERNAME   = "john";
+	public static final String TEST_USERNAME   = "John";
 	public static final String TEST_PASSWORD   = "123";
+	
+	public static final int TEST_ACCOUNT_ID_2 = 1;
+	public static final String TEST_USERNAME_2   = "Anita";
+	public static final String TEST_PASSWORD_2   = "1234";
+	
 	public static final double TEST_PRODUCT_PRICE = 500;
 	public static final int TEST_PRODUCT_ID = 0;
     public static final int TEST_EXPIRED_PRODUCT_ID = 1;

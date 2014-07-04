@@ -40,6 +40,7 @@ public class AbstractTest {
         
         persistanceManager = PersistanceFactory.getPersistanceManager();
         saveAccount(TestUtils.TEST_USERNAME, TestUtils.TEST_PASSWORD);
+        saveAccount(TestUtils.TEST_USERNAME_2, TestUtils.TEST_PASSWORD_2);
         saveProduct(TestUtils.getDefaultProductInstance());
         saveProduct(TestUtils.getExpiredProductInstance());
 
