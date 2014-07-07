@@ -18,7 +18,7 @@ public class BiddingService {
     private ProductGateway productGateway = PersistanceFactory.getProductGateway();
 
 	public UserBid placeBid(String userName, int productId, double bidPrice) {
-		  Product product = productGateway.findEntity(productId);
+		  Product product = productGateway.findProduct(productId);
 		  if(!canCreateBid(bidPrice, product))
 		     return null;
 		  

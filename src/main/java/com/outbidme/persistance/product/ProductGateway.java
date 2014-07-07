@@ -1,5 +1,7 @@
 package com.outbidme.persistance.product;
 
+import java.util.List;
+
 import com.outbidme.model.product.Product;
 import com.outbidme.persistance.PersistenceException;
 
@@ -8,5 +10,7 @@ public interface ProductGateway {
 
     public int getNextValidId() throws PersistenceException;
 
-    public Product findEntity(double id);
+    public Product findProduct(double id);
+    
+    public List<Product> findAllProducts();
 }

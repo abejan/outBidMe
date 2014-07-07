@@ -62,7 +62,7 @@ public class ProductTest extends AbstractTest {
         } catch (PersistenceException e) {
             fail();
         }
-        assertTrue(productGateway.findEntity(product.getId()) != null);
+        assertTrue(productGateway.findProduct(product.getId()) != null);
     }
     
 	@Test

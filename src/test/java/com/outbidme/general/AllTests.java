@@ -6,6 +6,7 @@ import org.junit.runners.Suite;
 import com.outbidme.authentication.AuthenticationPersistanceTest;
 import com.outbidme.authentication.AuthenticationTest;
 import com.outbidme.bidding.BiddingTest;
+import com.outbidme.notifications.NotificationsTest;
 import com.outbidme.presentation.LoginInterfaceTest;
 import com.outbidme.product.ProductTest;
 
@@ -19,6 +20,7 @@ import com.outbidme.product.ProductTest;
   ProductTest.class, 
   LoginInterfaceTest.class,
   BiddingTest.class,
+  NotificationsTest.class
 })
 public class AllTests{
 }

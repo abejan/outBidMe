@@ -66,20 +66,30 @@ public class PersistanceFactory {
                 return getPersistanceManager().getEntityCount(Product.class);
             }
 
-            public Product findEntity(final double id) {
+            public Product findProduct(final double id) {
                 Collection<Product> results = getPersistanceManager()
-                						.findEntities(getProductMatcher(id), Product.class);
+                						.findEntities(getProductIdMatcher(id), Product.class);
               return getFirstElement(results);
             }
 
-			private EntityMatcher<Product> getProductMatcher(final double id) {
+			@Override
+			public List<Product> findAllProducts() {
+				 Collection<Product> results = getPersistanceManager().findEntities(new EntityMatcher<Product>() {
+						@Override
+						public boolean matches(Product entity) {
+							return true;
+						}
+				 	}, Product.class);
+				 return toList(results);
+			}
+
+			private EntityMatcher<Product> getProductIdMatcher(final double id) {
 				return new EntityMatcher<Product>() {
                     public boolean matches(Product entity) {
                         return entity.getId() == id;
                     }
                 };
 			}
-
         };
     }
 

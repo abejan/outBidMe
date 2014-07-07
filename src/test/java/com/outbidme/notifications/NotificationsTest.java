@@ -12,6 +12,7 @@ import com.outbidme.model.notifications.Message;
 import com.outbidme.model.product.BidStatus;
 import com.outbidme.model.product.UserBid;
 import com.outbidme.service.BiddingService;
+import com.outbidme.service.ExpirationCheckService;
 import com.outbidme.service.NotificationsService;
 
 public class NotificationsTest extends AbstractTest{
@@ -26,6 +27,9 @@ public class NotificationsTest extends AbstractTest{
 		UserBid loosingBid = biddingService.placeBid(TestUtils.TEST_USERNAME_2, TestUtils.TEST_EXPIRED_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 1);
 		UserBid winningBid = biddingService.placeBid(TestUtils.TEST_USERNAME, TestUtils.TEST_EXPIRED_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 2);
     
+		ExpirationCheckService expireService = new ExpirationCheckService();
+		expireService.runCheckJob();
+		
     	MailBox userMailBox = notifyService.getAccountMailBox(TestUtils.TEST_USERNAME_2);
     	Message outbidMessage = userMailBox.getLastMessage();
     	
