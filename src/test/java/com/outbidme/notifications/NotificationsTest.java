@@ -1,8 +1,13 @@
 package com.outbidme.notifications;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import org.junit.Test;
+import org.junit.internal.runners.statements.Fail;
 
 import com.outbidme.general.AbstractTest;
 import com.outbidme.general.TestUtils;
@@ -45,7 +50,11 @@ public class NotificationsTest extends AbstractTest{
 		UserBid winningBid = biddingService.placeBid(TestUtils.TEST_ACCOUNT_ID, TestUtils.TEST_EXPIRED_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 2);
     
 		ExpirationCheckService expireService = new ExpirationCheckService();
-		expireService.runCheckJob();
+		try {
+			expireService.startExpirationCheck().get(); //wait for the job to finnish
+		} catch (InterruptedException | ExecutionException e) {
+			fail(e.getMessage());
+		}
 		
     	MailBox userMailBox = notifyService.getAccountMailBox(TestUtils.TEST_ACCOUNT_ID);
     	Message winMessage  = userMailBox.getLastMessage();

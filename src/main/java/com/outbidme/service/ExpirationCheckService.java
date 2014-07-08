@@ -1,8 +1,10 @@
 package com.outbidme.service;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import com.outbidme.configuration.eventbus.EventBusService;
 import com.outbidme.configuration.eventbus.IEventBus;
@@ -25,9 +27,9 @@ public class ExpirationCheckService {
 	
 	private final IEventBus eventBus = new EventBusService().getEventBus();
 	
-	private final Runnable expirationCheckTask = new Runnable(){
+	private final Callable<Void> expirationCheckTask = new Callable<Void>(){
 		@Override
-		public void run() {
+		public Void  call() throws Exception{
 			List<Product> allProducts = productGateway.findAllProducts();
 			for(Product product : allProducts){
 				if(product.isExpired()){
@@ -36,15 +38,21 @@ public class ExpirationCheckService {
 				      notificationService.sendMail(winnerBid.getAccountId(), new BidMessage(BidStatus.WIN, product.getId()));
 				}
 			}
+			return null;
 		}
 	};
 	
 	
-	
-	public void runCheckJob() {
+	/**
+	 * Execute the product expiration check asynchronous with the calling thread.
+	 * @return A simple handle object that can be used by the calling thread to wait for the completion of the 
+	 *         expiration check job if really necessary. 
+	 */
+	public Future<Void> startExpirationCheck() {
 		ExecutorService execService = Executors.newSingleThreadExecutor();
-		execService.execute(expirationCheckTask);
+		Future<Void> result = execService.submit(expirationCheckTask);
 		execService.shutdown();
+		return result;
 	}
 
 	
