@@ -74,7 +74,7 @@ public class BiddingTest extends AbstractTest{
 	}
 	
 	@Test
-	public void can_place_multiple_bids_on_same_product_by_different_users(){
+	public void can_place_multiple_bids_on_same_product_by_different_users_if_price_is_increasing(){
 		
 		UserBid bid1 = biddingService.placeBid(TestUtils.TEST_USERNAME, TestUtils.TEST_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 1);
 		assertTrue(PersistanceFactory.getPersistanceManager().contains(bid1));

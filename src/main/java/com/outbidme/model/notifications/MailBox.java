@@ -1,7 +1,6 @@
 package com.outbidme.model.notifications;
 
-import java.util.Queue;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.Stack;
 
 
 /**
@@ -9,12 +8,12 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class MailBox {
 
-	private int accountId = 0;
-	private Queue<Message> messages;
+	private int accountId = -1;
+	private Stack<Message> messages;
 	
 	public MailBox(int accountId) {
 		this.accountId = accountId;
-		this.messages = new LinkedBlockingQueue<>();
+		this.messages = new Stack<>();
 	}
 
 	public int getAccountId() {
@@ -22,11 +21,15 @@ public class MailBox {
 	}
 
 	public Message getLastMessage() {
-		return messages.peek();
+		return messages.lastElement();
 	}
 
-	public void addMessage(BidMessage bidMessage) {
-		this.messages.add(bidMessage);
+	public void addMessage(Message message) {
+		this.messages.add(message);
+	}
+
+	public boolean isEmpty() {
+		return this.messages.isEmpty();
 	}
 	
 }

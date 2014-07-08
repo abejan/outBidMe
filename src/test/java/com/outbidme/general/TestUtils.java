@@ -31,14 +31,13 @@ public class TestUtils {
 		product.setDescription("Just a test product");
 		product.setName("Test Product");
 		product.setPrice(TEST_PRODUCT_PRICE);
-		product.setExpirationTime(new Date());
 		return product;
 	}
 
     public static Product getExpiredProductInstance(){
         Product product = new Product(TEST_EXPIRED_PRODUCT_ID);
-        product.setDescription("Just a test product");
-        product.setName("Test Product");
+        product.setDescription("Just an expired test product");
+        product.setName("Test Expired Product");
         product.setPrice(TEST_PRODUCT_PRICE);
         product.setExpirationTime(getYesterdayTimeObj());
         return product;

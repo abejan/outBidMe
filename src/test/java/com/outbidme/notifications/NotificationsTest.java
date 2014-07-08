@@ -38,7 +38,6 @@ public class NotificationsTest extends AbstractTest{
     	biddingService.removeUserBidOnProduct(loosingBid.getId());
     }
 	
-	
 	@Test
     public void verify_user_is_notified_when_winning_a_bid(){
 		
@@ -58,5 +57,28 @@ public class NotificationsTest extends AbstractTest{
     	biddingService.removeUserBidOnProduct(winningBid.getId());
     	biddingService.removeUserBidOnProduct(loosingBid.getId());
     }
+	
+	@Test
+	public void verify_user_is_not_notified_of_winning_bid_when_product_has_not_expired_yet(){
+		UserBid winningBid = biddingService.placeBid(TestUtils.TEST_USERNAME, TestUtils.TEST_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 2);
+		
+		MailBox userMailBox = notifyService.getAccountMailBox(TestUtils.TEST_USERNAME);
+		if(!userMailBox.isEmpty()){
+			Message lastMessage  = userMailBox.getLastMessage();
+			if(lastMessage instanceof BidMessage){
+			   BidMessage bidMessage = (BidMessage)lastMessage;
+			   int lastMessageProductId = bidMessage.getProductId();
+			   if (lastMessageProductId == TestUtils.TEST_PRODUCT_ID){
+				    assertTrue(bidMessage.getStatus() != BidStatus.WIN);
+			   }
+			   //test can pass if last message is not associated to the product being bidded.
+			}
+			//test can pass if last message is not a bid related message
+		}
+		//test can pass if mailbox is empty
+		
+		//cleanup
+		biddingService.removeUserBidOnProduct(winningBid.getId());
+	}
 	
 }

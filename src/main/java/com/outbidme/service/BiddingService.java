@@ -71,7 +71,7 @@ public class BiddingService {
 		 List<UserBid> currentProductBids = bidGateway.findAllBids(productId);
 		 for(UserBid currentBid : currentProductBids){
 			 bidGateway.removeBid(currentBid.getId());
-			 notificationService.sendMail(currentBid.getUserName(), new BidMessage(BidStatus.OUTBID));
+			 notificationService.sendMail(currentBid.getUserName(), new BidMessage(BidStatus.OUTBID, productId));
 		 }
 	}
 

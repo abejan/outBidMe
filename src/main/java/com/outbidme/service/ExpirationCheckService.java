@@ -8,7 +8,6 @@ import com.outbidme.model.product.Product;
 import com.outbidme.model.product.UserBid;
 import com.outbidme.persistance.PersistanceFactory;
 import com.outbidme.persistance.product.ProductGateway;
-import com.outbidme.persistance.product.UserBidGateway;
 
 /**
  * Schedules, or runs a job on demand responsible for checking whether products have expired or not, 
@@ -17,10 +16,9 @@ import com.outbidme.persistance.product.UserBidGateway;
 public class ExpirationCheckService {
 
 	private static final ProductGateway productGateway  = PersistanceFactory.getProductGateway();
-	private static final UserBidGateway bidsGateway     = PersistanceFactory.getUserBidGateway();
 	
 	private static final NotificationsService notificationService = new NotificationsService();
-	private static final BiddingService biddingService = new BiddingService();
+	private static final BiddingService 	  biddingService	  = new BiddingService();
 	
 	
 	public void runCheckJob() {
@@ -29,7 +27,7 @@ public class ExpirationCheckService {
 			if(product.isExpired()){
 			   UserBid winnerBid = biddingService.getWinnerBid(product.getId());
 			   if(winnerBid != null)
-			      notificationService.sendMail(winnerBid.getUserName(), new BidMessage(BidStatus.WIN));
+			      notificationService.sendMail(winnerBid.getUserName(), new BidMessage(BidStatus.WIN, product.getId()));
 			}
 		}
 	}
