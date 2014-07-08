@@ -15,6 +15,8 @@ import com.outbidme.service.BiddingService;
 
 public class BiddingTest extends AbstractTest{
 
+	/** Always perform cleanup of any newly added bids in tests to avoid test failures */
+	
 	private final static BiddingService biddingService = new BiddingService();
 	private final static UserBidGateway biddingGateway = PersistanceFactory.getUserBidGateway();
 	
@@ -64,13 +66,27 @@ public class BiddingTest extends AbstractTest{
 	}
 
 	@Test
-	public void can_not_place_multiple_bids_by_same_user(){
-		//TODO
+	public void can_not_place_multiple_bids_by_same_user_if_he_is_already_winning(){
+		UserBid bid1 = biddingService.placeBid(TestUtils.TEST_USERNAME, TestUtils.TEST_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 1);
+		UserBid bid2 = biddingService.placeBid(TestUtils.TEST_USERNAME, TestUtils.TEST_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 2);
+		
+		assertTrue(bid2 == null);
+		assertTrue(PersistanceFactory.getPersistanceManager().contains(bid1));
+		
+		//cleanup
+		biddingService.removeUserBidOnProduct(bid1.getId());
 	}
 	
 	@Test
 	public void can_not_place_bids_with_price_lower_than_current_winning_bid(){
-		//TODO
+		UserBid bid1 = biddingService.placeBid(TestUtils.TEST_USERNAME, TestUtils.TEST_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 2);
+		UserBid bid2 = biddingService.placeBid(TestUtils.TEST_USERNAME_2, TestUtils.TEST_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 1);
+		
+		assertTrue(bid2 == null);
+		assertTrue(PersistanceFactory.getPersistanceManager().contains(bid1));
+		
+		//cleanup
+		biddingService.removeUserBidOnProduct(bid1.getId());
 	}
 	
 	@Test

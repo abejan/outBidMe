@@ -23,7 +23,7 @@ public class BiddingService {
     
 	public UserBid placeBid(String userName, int productId, double bidPrice) {
 		  Product product = productGateway.findProduct(productId);
-		  if(!canCreateBid(bidPrice, product))
+		  if(!canCreateBid(bidPrice, product, userName))
 		     return null;
 		  
 		   UserBid userBid = null;
@@ -75,7 +75,20 @@ public class BiddingService {
 		 }
 	}
 
-	private boolean canCreateBid(double bidPrice, Product product) {
-		return product != null && bidPrice >= product.getPrice();
+	/**
+	 * Perform validations prior to creating a new user bid.
+	 */
+	private boolean canCreateBid(double bidPrice, Product product, String userName) {
+		
+		if(product == null) return false;
+		if(bidPrice < product.getPrice()) return false;
+		
+		UserBid currentWinningBid = getWinnerBid(product.getId());
+		if(currentWinningBid != null){
+		   if(currentWinningBid.getUserName().equals(userName)) return false;	
+		   if(currentWinningBid.getPrice() >= bidPrice) return false;	
+		}
+	
+		return true;
 	}
 }
