@@ -19,7 +19,7 @@ public class ProductTest extends AbstractTest {
 
     @Test
     public void can_create_product(){
-        double nextValidId = 0;
+        int nextValidId = 0;
 		try {
 			nextValidId = productGateway.getNextValidId();
 		} catch (PersistenceException e) {

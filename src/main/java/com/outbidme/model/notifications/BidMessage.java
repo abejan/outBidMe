@@ -2,7 +2,7 @@ package com.outbidme.model.notifications;
 
 import com.outbidme.model.product.BidStatus;
 
-public class BidMessage {
+public class BidMessage implements Message{
 
 	private BidStatus status;
 	

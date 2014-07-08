@@ -26,6 +26,10 @@ public class UserBid implements Comparable<UserBid>{
 		return price;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+	
 	public int compareTo(UserBid o) {
 		return (-1) * Double.valueOf(this.getPrice()).compareTo(Double.valueOf(o.getPrice()));
 	}

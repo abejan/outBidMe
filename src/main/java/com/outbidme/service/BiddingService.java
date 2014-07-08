@@ -3,6 +3,8 @@ package com.outbidme.service;
 import java.util.Collections;
 import java.util.List;
 
+import com.outbidme.model.notifications.BidMessage;
+import com.outbidme.model.product.BidStatus;
 import com.outbidme.model.product.Product;
 import com.outbidme.model.product.UserBid;
 import com.outbidme.persistance.PersistanceFactory;
@@ -15,8 +17,10 @@ import com.outbidme.persistance.product.UserBidGateway;
  * Service class which performs user bidding operations.
  */
 public class BiddingService {
-    private ProductGateway productGateway = PersistanceFactory.getProductGateway();
-
+	
+    private final ProductGateway productGateway = PersistanceFactory.getProductGateway();
+    private final NotificationsService notificationService = new NotificationsService();
+    
 	public UserBid placeBid(String userName, int productId, double bidPrice) {
 		  Product product = productGateway.findProduct(productId);
 		  if(!canCreateBid(bidPrice, product))
@@ -24,9 +28,13 @@ public class BiddingService {
 		  
 		   UserBid userBid = null;
 		   try {
+			   
+			 removeCurrentWinBid(userName, productId);  
 			 userBid = createAndPersistUserBid(userName, productId, bidPrice);
+			 
 		   } catch (PersistenceException e) {
 		   }
+		   
 	   return userBid;
 	}
 
@@ -56,6 +64,15 @@ public class BiddingService {
 		  bidGateway.persist(userBid);
 		  
 		return userBid;
+	}
+
+	private void removeCurrentWinBid(String username, int productId) {
+		 UserBidGateway bidGateway = PersistanceFactory.getUserBidGateway();
+		 List<UserBid> currentProductBids = bidGateway.findAllBids(productId);
+		 for(UserBid currentBid : currentProductBids){
+			 bidGateway.removeBid(currentBid.getId());
+			 notificationService.sendMail(currentBid.getUserName(), new BidMessage(BidStatus.OUTBID));
+		 }
 	}
 
 	private boolean canCreateBid(double bidPrice, Product product) {

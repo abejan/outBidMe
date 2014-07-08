@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 public class Product {
 	
     private static final int DEFAULT_EXPIRATION_DAYS = 10;
-	private double id;
+	private int id;
     private String name;
     private String description;
     private double price;
@@ -15,7 +15,7 @@ public class Product {
     //default to 10 days after creation date
 	private Date expirationTime;
     
-    public Product(double id) {
+    public Product(int id) {
         this.id = id;
 		Calendar calendar = GregorianCalendar.getInstance();
 		calendar.add(Calendar.DATE, DEFAULT_EXPIRATION_DAYS);
@@ -46,7 +46,7 @@ public class Product {
         this.price = price;
     }
 
-    public double getId() {
+    public int getId() {
         return id;
     }
 

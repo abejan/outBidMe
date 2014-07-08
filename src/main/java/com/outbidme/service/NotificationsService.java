@@ -1,6 +1,7 @@
 package com.outbidme.service;
 
 import com.outbidme.model.authentication.Account;
+import com.outbidme.model.notifications.BidMessage;
 import com.outbidme.model.notifications.MailBox;
 import com.outbidme.persistance.PersistanceFactory;
 import com.outbidme.persistance.PersistenceException;
@@ -27,6 +28,11 @@ public class NotificationsService {
 	  return null;
 	}
 
+	public void sendMail(String userName, BidMessage bidMessage) {
+		MailBox mailBox = getAccountMailBox(userName);
+		mailBox.addMessage(bidMessage);
+	}
+	
 	private MailBox createAndPersistMailBox(int accountId, MailBoxGateway mbGateway) {
 		  MailBox mb = new MailBox(accountId);
 		  try {

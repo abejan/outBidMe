@@ -14,5 +14,9 @@ public interface UserBidGateway {
 	public void removeBid(int id);
 
 	public List<UserBid> findAllBids(int productId);
+	
+	public void removeBidForProduct(int productId);
+
+	public void removeAllBids();
 
 }

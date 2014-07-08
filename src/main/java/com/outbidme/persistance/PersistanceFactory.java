@@ -74,12 +74,7 @@ public class PersistanceFactory {
 
 			@Override
 			public List<Product> findAllProducts() {
-				 Collection<Product> results = getPersistanceManager().findEntities(new EntityMatcher<Product>() {
-						@Override
-						public boolean matches(Product entity) {
-							return true;
-						}
-				 	}, Product.class);
+				 Collection<Product> results = getPersistanceManager().findEntities(getAllEntitiesMatcher(Product.class), Product.class);
 				 return toList(results);
 			}
 
@@ -121,6 +116,20 @@ public class PersistanceFactory {
 				return toList(results);
 			}
 
+			@Override
+			public void removeBidForProduct(final int productId) {
+				 getPersistanceManager().removeEntity(new EntityMatcher<UserBid>() {
+						public boolean matches(UserBid entity) {
+							return entity.getProductId() == productId;
+						}
+				}, UserBid.class);
+			}
+			
+			@Override
+			public void removeAllBids() {
+				 getPersistanceManager().removeEntity(getAllEntitiesMatcher(UserBid.class), UserBid.class);
+			}
+
 		};
 	}
 	
@@ -157,5 +166,14 @@ public class PersistanceFactory {
 		 if(!collection.isEmpty())
 				return collection.iterator().next();
 		 return null;
+	}
+	
+	private static <T> EntityMatcher<T> getAllEntitiesMatcher(Class<T> forClass){
+		return new EntityMatcher<T>() {
+			@Override
+			public boolean matches(T entity) {
+				return true;
+			}
+		};
 	}
 }

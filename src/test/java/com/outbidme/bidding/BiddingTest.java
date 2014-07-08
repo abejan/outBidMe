@@ -77,9 +77,11 @@ public class BiddingTest extends AbstractTest{
 	public void can_place_multiple_bids_on_same_product_by_different_users(){
 		
 		UserBid bid1 = biddingService.placeBid(TestUtils.TEST_USERNAME, TestUtils.TEST_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 1);
-		UserBid bid2 = biddingService.placeBid(TestUtils.TEST_USERNAME_2, TestUtils.TEST_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 2);
-		
 		assertTrue(PersistanceFactory.getPersistanceManager().contains(bid1));
+		
+		
+		//next bid will replace old winning bid
+		UserBid bid2 = biddingService.placeBid(TestUtils.TEST_USERNAME_2, TestUtils.TEST_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 2);
 		assertTrue(PersistanceFactory.getPersistanceManager().contains(bid2));
 		
 		//cleanup

@@ -9,7 +9,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class MailBox {
 
-	private int accountId =-0;
+	private int accountId = 0;
 	private Queue<Message> messages;
 	
 	public MailBox(int accountId) {
@@ -23,6 +23,10 @@ public class MailBox {
 
 	public Message getLastMessage() {
 		return messages.peek();
+	}
+
+	public void addMessage(BidMessage bidMessage) {
+		this.messages.add(bidMessage);
 	}
 	
 }

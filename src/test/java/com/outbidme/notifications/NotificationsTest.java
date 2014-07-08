@@ -27,10 +27,7 @@ public class NotificationsTest extends AbstractTest{
 		UserBid loosingBid = biddingService.placeBid(TestUtils.TEST_USERNAME_2, TestUtils.TEST_EXPIRED_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 1);
 		UserBid winningBid = biddingService.placeBid(TestUtils.TEST_USERNAME, TestUtils.TEST_EXPIRED_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 2);
     
-		ExpirationCheckService expireService = new ExpirationCheckService();
-		expireService.runCheckJob();
-		
-    	MailBox userMailBox = notifyService.getAccountMailBox(TestUtils.TEST_USERNAME_2);
+    	MailBox userMailBox   = notifyService.getAccountMailBox(TestUtils.TEST_USERNAME_2);
     	Message outbidMessage = userMailBox.getLastMessage();
     	
     	assertTrue(outbidMessage instanceof BidMessage);
@@ -48,8 +45,11 @@ public class NotificationsTest extends AbstractTest{
 		UserBid loosingBid = biddingService.placeBid(TestUtils.TEST_USERNAME_2, TestUtils.TEST_EXPIRED_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 1);
 		UserBid winningBid = biddingService.placeBid(TestUtils.TEST_USERNAME, TestUtils.TEST_EXPIRED_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 2);
     
+		ExpirationCheckService expireService = new ExpirationCheckService();
+		expireService.runCheckJob();
+		
     	MailBox userMailBox = notifyService.getAccountMailBox(TestUtils.TEST_USERNAME);
-    	Message winMessage = userMailBox.getLastMessage();
+    	Message winMessage  = userMailBox.getLastMessage();
     	
     	assertTrue(winMessage instanceof BidMessage);
     	assertTrue(((BidMessage)winMessage).getStatus() == BidStatus.WIN);
