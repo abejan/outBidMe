@@ -25,6 +25,13 @@ public class AuthenticationPersistanceTest extends AbstractTest{
 		assertEquals(true, account.getUsername().equals(TestUtils.TEST_USERNAME));
 	}
 
+	@Test
+	public void can_retrieve_an_existing_account_with_Id(){
+		Account account = accountGateway.findAccountById(TestUtils.TEST_ACCOUNT_ID);
+		assertEquals(true, account != null);
+		assertEquals(true, account.getUsername().equals(TestUtils.TEST_USERNAME));
+	}
+	
     @Test
     public void can_not_add_same_account_twice(){
         Account account1 = new Account(accountGateway.getNextValidId(), "aaa", "111");

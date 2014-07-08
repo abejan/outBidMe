@@ -27,7 +27,7 @@ public class ExpirationCheckService {
 			if(product.isExpired()){
 			   UserBid winnerBid = biddingService.getWinnerBid(product.getId());
 			   if(winnerBid != null)
-			      notificationService.sendMail(winnerBid.getUserName(), new BidMessage(BidStatus.WIN, product.getId()));
+			      notificationService.sendMail(winnerBid.getAccountId(), new BidMessage(BidStatus.WIN, product.getId()));
 			}
 		}
 	}

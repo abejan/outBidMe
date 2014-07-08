@@ -24,10 +24,10 @@ public class NotificationsTest extends AbstractTest{
 	@Test
     public void verify_user_is_notified_when_putbid(){
 		
-		UserBid loosingBid = biddingService.placeBid(TestUtils.TEST_USERNAME_2, TestUtils.TEST_EXPIRED_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 1);
-		UserBid winningBid = biddingService.placeBid(TestUtils.TEST_USERNAME, TestUtils.TEST_EXPIRED_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 2);
+		UserBid loosingBid = biddingService.placeBid(TestUtils.TEST_ACCOUNT_ID_2, TestUtils.TEST_EXPIRED_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 1);
+		UserBid winningBid = biddingService.placeBid(TestUtils.TEST_ACCOUNT_ID, TestUtils.TEST_EXPIRED_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 2);
     
-    	MailBox userMailBox   = notifyService.getAccountMailBox(TestUtils.TEST_USERNAME_2);
+    	MailBox userMailBox   = notifyService.getAccountMailBox(TestUtils.TEST_ACCOUNT_ID_2);
     	Message outbidMessage = userMailBox.getLastMessage();
     	
     	assertTrue(outbidMessage instanceof BidMessage);
@@ -41,13 +41,13 @@ public class NotificationsTest extends AbstractTest{
 	@Test
     public void verify_user_is_notified_when_winning_a_bid(){
 		
-		UserBid loosingBid = biddingService.placeBid(TestUtils.TEST_USERNAME_2, TestUtils.TEST_EXPIRED_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 1);
-		UserBid winningBid = biddingService.placeBid(TestUtils.TEST_USERNAME, TestUtils.TEST_EXPIRED_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 2);
+		UserBid loosingBid = biddingService.placeBid(TestUtils.TEST_ACCOUNT_ID_2, TestUtils.TEST_EXPIRED_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 1);
+		UserBid winningBid = biddingService.placeBid(TestUtils.TEST_ACCOUNT_ID, TestUtils.TEST_EXPIRED_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 2);
     
 		ExpirationCheckService expireService = new ExpirationCheckService();
 		expireService.runCheckJob();
 		
-    	MailBox userMailBox = notifyService.getAccountMailBox(TestUtils.TEST_USERNAME);
+    	MailBox userMailBox = notifyService.getAccountMailBox(TestUtils.TEST_ACCOUNT_ID);
     	Message winMessage  = userMailBox.getLastMessage();
     	
     	assertTrue(winMessage instanceof BidMessage);
@@ -60,9 +60,9 @@ public class NotificationsTest extends AbstractTest{
 	
 	@Test
 	public void verify_user_is_not_notified_of_winning_bid_when_product_has_not_expired_yet(){
-		UserBid winningBid = biddingService.placeBid(TestUtils.TEST_USERNAME, TestUtils.TEST_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 2);
+		UserBid winningBid = biddingService.placeBid(TestUtils.TEST_ACCOUNT_ID, TestUtils.TEST_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 2);
 		
-		MailBox userMailBox = notifyService.getAccountMailBox(TestUtils.TEST_USERNAME);
+		MailBox userMailBox = notifyService.getAccountMailBox(TestUtils.TEST_ACCOUNT_ID);
 		if(!userMailBox.isEmpty()){
 			Message lastMessage  = userMailBox.getLastMessage();
 			if(lastMessage instanceof BidMessage){

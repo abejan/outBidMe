@@ -3,13 +3,13 @@ package com.outbidme.model.product;
 public class UserBid implements Comparable<UserBid>{
 
 	private int id;
-	private String userName;
+	private int accountId;
 	private int productId;
 	private double price;
 
-	public UserBid(int id, String username, int productId, double bidPrice) {
+	public UserBid(int id, int accountId, int productId, double bidPrice) {
 		this.id = id;
-		this.userName  = username;
+		this.accountId  = accountId;
 		this.productId = productId;
 		this.price = bidPrice;
 	}
@@ -26,8 +26,8 @@ public class UserBid implements Comparable<UserBid>{
 		return price;
 	}
 
-	public String getUserName() {
-		return userName;
+	public int getAccountId() {
+		return accountId;
 	}
 	
 	public int compareTo(UserBid o) {
@@ -43,8 +43,7 @@ public class UserBid implements Comparable<UserBid>{
 		temp = Double.doubleToLongBits(price);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + productId;
-		result = prime * result
-				+ ((userName == null) ? 0 : userName.hashCode());
+		result = prime * result * accountId;
 		return result;
 	}
 
@@ -61,18 +60,14 @@ public class UserBid implements Comparable<UserBid>{
 			return false;
 		if (productId != other.productId)
 			return false;
-		if (userName == null) {
-			if (other.userName != null)
-				return false;
-		} else if (!userName.equals(other.userName))
+		if (accountId != other.accountId)
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "UserBid [userName=" + userName + ", productId=" + productId
-				+ ", price=" + price + "]";
+		return "UserBid [accountId=" + accountId + ", productId=" + productId + ", price=" + price + "]";
 	}
 	
 }

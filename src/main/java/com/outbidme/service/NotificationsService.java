@@ -14,8 +14,8 @@ import com.outbidme.persistance.notifications.MailBoxGateway;
  */
 public class NotificationsService {
 	
-	public MailBox getAccountMailBox(String userName) {
-		Account account = retrieveAccount(userName);
+	public MailBox getAccountMailBox(int accountId) {
+		Account account = retrieveAccount(accountId);
 		if(account != null){
 		   MailBoxGateway mbGateway = PersistanceFactory.getMailBoxGateway();
 		   MailBox mb = mbGateway.findMailBoxForAccount(account.getId());
@@ -28,8 +28,8 @@ public class NotificationsService {
 	  return null;
 	}
 
-	public void sendMail(String userName, Message message) {
-		MailBox mailBox = getAccountMailBox(userName);
+	public void sendMail(int accountId, Message message) {
+		MailBox mailBox = getAccountMailBox(accountId);
 		mailBox.addMessage(message);
 	}
 	
@@ -43,9 +43,9 @@ public class NotificationsService {
 		return mb;
 	}
 
-	private Account retrieveAccount(String userName) {
+	private Account retrieveAccount(int accountId) {
 		  AccountGateway accountGateway = PersistanceFactory.getAccountGateway();
-		  Account account = accountGateway.findAccountByUserName(userName);
+		  Account account = accountGateway.findAccountById(accountId);
 		return account;
 	}
 

@@ -6,6 +6,8 @@ import com.outbidme.persistance.PersistenceException;
 public interface AccountGateway {
 	
 	public void persist(Account account) throws PersistenceException;
+	
+	public Account findAccountById(int accountId);
 
 	public Account findAccountByUserName(String username);
 

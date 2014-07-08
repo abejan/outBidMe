@@ -31,11 +31,18 @@ public class PersistanceFactory {
 
 			public Account findAccountByUserName(String username) {
 				Collection<Account> results = getPersistanceManager().
-									findEntities(getAccountMatcher(username), Account.class);
+									findEntities(getAccountNameMatcher(username), Account.class);
 				return getFirstElement(results);
 			}
 
-			private EntityMatcher<Account> getAccountMatcher(final String username) {
+			@Override
+			public Account findAccountById(int accountId) {
+				Collection<Account> results = getPersistanceManager().
+						findEntities(getAccountIdeMatcher(accountId), Account.class);
+				return getFirstElement(results);
+			}
+			
+			private EntityMatcher<Account> getAccountNameMatcher(final String username) {
 				return new EntityMatcher<Account>() {
 					public boolean matches(Account entity) {
 						return username.equals(entity.getUsername());
@@ -43,8 +50,16 @@ public class PersistanceFactory {
 				};
 			}
 
+			private EntityMatcher<Account> getAccountIdeMatcher(final int id) {
+				return new EntityMatcher<Account>() {
+					public boolean matches(Account entity) {
+						return id == entity.getId();
+					}
+				};
+			}
+			
 			public void removeAccountWithUsername(String username) {
-				getPersistanceManager().removeEntity(getAccountMatcher(username), Account.class);
+				getPersistanceManager().removeEntity(getAccountNameMatcher(username), Account.class);
 			}
 
 			@Override

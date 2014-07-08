@@ -9,11 +9,14 @@ import com.outbidme.model.product.Product;
 
 public class TestUtils {
 
-	public static final int TEST_ACCOUNT_ID = 0;
+	/** FIXME The TEST_ACCOUNT_IDs must not be changed. They are added in this order in teh database when the Test cases are 
+	setup. The ids must also take into account the default entries added by the mock database itself when it is started.*/
+	
+	public static final int TEST_ACCOUNT_ID = 1; 
 	public static final String TEST_USERNAME   = "John";
 	public static final String TEST_PASSWORD   = "123";
 	
-	public static final int TEST_ACCOUNT_ID_2 = 1;
+	public static final int TEST_ACCOUNT_ID_2 = 2;  
 	public static final String TEST_USERNAME_2   = "Anita";
 	public static final String TEST_PASSWORD_2   = "1234";
 	

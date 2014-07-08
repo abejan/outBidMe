@@ -21,16 +21,16 @@ public class BiddingService {
     private final ProductGateway productGateway = PersistanceFactory.getProductGateway();
     private final NotificationsService notificationService = new NotificationsService();
     
-	public UserBid placeBid(String userName, int productId, double bidPrice) {
+	public UserBid placeBid(int accountId, int productId, double bidPrice) {
 		  Product product = productGateway.findProduct(productId);
-		  if(!canCreateBid(bidPrice, product, userName))
+		  if(!canCreateBid(bidPrice, product, accountId))
 		     return null;
 		  
 		   UserBid userBid = null;
 		   try {
 			   
-			 removeCurrentWinBid(userName, productId);  
-			 userBid = createAndPersistUserBid(userName, productId, bidPrice);
+			 removeCurrentWinBid(accountId, productId);  
+			 userBid = createAndPersistUserBid(accountId, productId, bidPrice);
 			 
 		   } catch (PersistenceException e) {
 		   }
@@ -56,36 +56,36 @@ public class BiddingService {
         return null;
 	}
 	
-	private UserBid createAndPersistUserBid(String username, int productId, double bidPrice) throws PersistenceException {
+	private UserBid createAndPersistUserBid(int accountId, int productId, double bidPrice) throws PersistenceException {
 		  UserBidGateway bidGateway = PersistanceFactory.getUserBidGateway();
 		  int id = bidGateway.getNextValidId();
 		  
-		  UserBid userBid = new UserBid(id, username, productId, bidPrice);
+		  UserBid userBid = new UserBid(id, accountId, productId, bidPrice);
 		  bidGateway.persist(userBid);
 		  
 		return userBid;
 	}
 
-	private void removeCurrentWinBid(String username, int productId) {
+	private void removeCurrentWinBid(int accountId, int productId) {
 		 UserBidGateway bidGateway = PersistanceFactory.getUserBidGateway();
 		 List<UserBid> currentProductBids = bidGateway.findAllBids(productId);
 		 for(UserBid currentBid : currentProductBids){
 			 bidGateway.removeBid(currentBid.getId());
-			 notificationService.sendMail(currentBid.getUserName(), new BidMessage(BidStatus.OUTBID, productId));
+			 notificationService.sendMail(currentBid.getAccountId(), new BidMessage(BidStatus.OUTBID, productId));
 		 }
 	}
 
 	/**
 	 * Perform validations prior to creating a new user bid.
 	 */
-	private boolean canCreateBid(double bidPrice, Product product, String userName) {
+	private boolean canCreateBid(double bidPrice, Product product, int accountId) {
 		
 		if(product == null) return false;
 		if(bidPrice < product.getPrice()) return false;
 		
 		UserBid currentWinningBid = getWinnerBid(product.getId());
 		if(currentWinningBid != null){
-		   if(currentWinningBid.getUserName().equals(userName)) return false;	
+		   if(currentWinningBid.getAccountId() == accountId) return false;	
 		   if(currentWinningBid.getPrice() >= bidPrice) return false;	
 		}
 	
