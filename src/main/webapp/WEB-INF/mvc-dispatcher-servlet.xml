@@ -18,7 +18,9 @@
   		 <property name="suffix" value=".jsp" />
     </bean>
     
-    <mvc:resources mapping="css/bootstrap/css/**" location="/WEB-INF/pages/css/bootstrap/css/" />
+    <mvc:resources mapping="/theme/**" location="/resources/css/theme/" />
+    <mvc:resources mapping="/bootstrap/**" location="/resources/css/bootstrap/css/" />
+    <mvc:resources mapping="/images/**" location="/resources/images/" />
     
     <!-- Custom bean -->
     <!--bean id="loginPresenter" class="com.outbidme.presentation.authentication.LoginPresenter" /-->

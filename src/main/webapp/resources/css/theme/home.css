@@ -1,0 +1,25 @@
+#header {
+	background-color : white;
+	height : 200px;
+}
+
+#sign_in_link a{
+	width : 300px;
+	color : #3b5998;
+	font-size: 20px; 
+	font-weight: bold;
+}
+
+#search_button button{
+	color : #3b5998;
+	background-color : white;
+	font-weight: bold;
+	margin-right:auto;
+}
+
+#search_text input[type=text]{
+	color: white;
+	width : 600px;
+	margin-left:auto;
+}
+
