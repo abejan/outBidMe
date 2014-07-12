@@ -9,6 +9,7 @@ import java.util.concurrent.Future;
 import com.outbidme.configuration.eventbus.EventBusService;
 import com.outbidme.configuration.eventbus.IEventBus;
 import com.outbidme.model.notifications.BidMessage;
+import com.outbidme.model.notifications.ProductExpiredMessage;
 import com.outbidme.model.product.BidStatus;
 import com.outbidme.model.product.Product;
 import com.outbidme.model.product.UserBid;
@@ -22,8 +23,8 @@ import com.outbidme.persistance.product.ProductGateway;
 public class ExpirationCheckService {
 
 	private final ProductGateway productGateway  = PersistanceFactory.getProductGateway();
-	private final NotificationsService notificationService = new NotificationsService();
-	private final BiddingService 	   biddingService	   = new BiddingService();
+//	private final NotificationsService notificationService = new NotificationsService();
+//	private final BiddingService 	   biddingService	   = new BiddingService();
 	
 	private final IEventBus eventBus = new EventBusService().getEventBus();
 	
@@ -33,9 +34,10 @@ public class ExpirationCheckService {
 			List<Product> allProducts = productGateway.findAllProducts();
 			for(Product product : allProducts){
 				if(product.isExpired()){
-				   UserBid winnerBid = biddingService.getWinnerBid(product.getId());
-				   if(winnerBid != null)
-				      notificationService.sendMail(winnerBid.getAccountId(), new BidMessage(BidStatus.WIN, product.getId()));
+//				   UserBid winnerBid = biddingService.getWinnerBid(product.getId());
+//				   if(winnerBid != null)
+//				      notificationService.sendMail(winnerBid.getAccountId(), new BidMessage(BidStatus.WIN, product.getId()));
+                    eventBus.post(new ProductExpiredMessage(product.getId()));
 				}
 			}
 			return null;
