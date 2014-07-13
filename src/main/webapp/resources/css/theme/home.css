@@ -19,20 +19,6 @@
 	top:20px;
 }
 
-#sign_in{
-	padding-right : 0px;
-	margin-left : auto;
-}
-
-#sign_in_link a{
-	width : 300px;
-	color : #3b5998;
-	font-size: 20px; 
-	font-weight: bold;
-	margin-left:auto;
-	margin-right:auto;
-}
-
 #search_button {
 	padding-left : 0px;
 }
@@ -41,8 +27,9 @@
 	border-style:solid;
 	color : #3b5998;
 	background-color : white;
-	font-weight: bold;
-	margin-right:auto;
+	font-weight:  bold;
+	margin-right :auto;
+	margin-top   :3px;
 }
 
 #search_text {
@@ -54,7 +41,8 @@
 	padding-right : 0px;
 	color: white;
 	width : 100%;
-	margin-left:0px;
-	margin-right:0px;
+	margin-left  :0px;
+	margin-right :0px;
+	margin-top   :3px;
 }
 

@@ -21,6 +21,7 @@
     <mvc:resources mapping="/theme/**" location="/resources/css/theme/" />
     <mvc:resources mapping="/bootstrap/**" location="/resources/css/bootstrap/css/" />
     <mvc:resources mapping="/images/**" location="/resources/images/" />
+    <mvc:resources mapping="/js/**" location="/resources/js/" />
     
     <!-- Custom bean -->
     <!--bean id="loginPresenter" class="com.outbidme.presentation.authentication.LoginPresenter" /-->
