@@ -13,7 +13,8 @@ public enum SystemConfiguration {
 	Instance;
 
 	public static enum Type{
-		Persistance
+		Persistance,
+        EventBus
 	}
 	
 	private Map<Type, Object> componentRegistry = new HashMap<Type, Object>(2);

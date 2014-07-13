@@ -3,7 +3,11 @@ package com.outbidme.service;
 import java.util.Collections;
 import java.util.List;
 
+import com.outbidme.configuration.eventbus.EventBusService;
+import com.outbidme.configuration.eventbus.IEventBus;
+import com.outbidme.configuration.eventbus.IEventListener;
 import com.outbidme.model.notifications.BidMessage;
+import com.outbidme.model.notifications.ProductExpiredMessage;
 import com.outbidme.model.product.BidStatus;
 import com.outbidme.model.product.Product;
 import com.outbidme.model.product.UserBid;
@@ -16,12 +20,18 @@ import com.outbidme.persistance.product.UserBidGateway;
 /**
  * Service class which performs user bidding operations.
  */
-public class BiddingService {
+public class BiddingService implements IEventListener{
 	
     private final ProductGateway productGateway = PersistanceFactory.getProductGateway();
-    private final NotificationsService notificationService = new NotificationsService();
-    
-	public UserBid placeBid(int accountId, int productId, double bidPrice) {
+    private final IEventBus eventBus = new EventBusService().getEventBus();
+    //private final NotificationsService notificationService = new NotificationsService();
+
+
+    public BiddingService() {
+        eventBus.register(this);
+    }
+
+    public UserBid placeBid(int accountId, int productId, double bidPrice) {
 		  Product product = productGateway.findProduct(productId);
 		  if(!canCreateBid(bidPrice, product, accountId))
 		     return null;
@@ -29,7 +39,7 @@ public class BiddingService {
 		   UserBid userBid = null;
 		   try {
 			   
-			 removeCurrentWinBid(accountId, productId);  
+			 removeCurrentWinBid(productId);
 			 userBid = createAndPersistUserBid(accountId, productId, bidPrice);
 			 
 		   } catch (PersistenceException e) {
@@ -66,12 +76,13 @@ public class BiddingService {
 		return userBid;
 	}
 
-	private void removeCurrentWinBid(int accountId, int productId) {
+	private void removeCurrentWinBid( int productId) {
 		 UserBidGateway bidGateway = PersistanceFactory.getUserBidGateway();
 		 List<UserBid> currentProductBids = bidGateway.findAllBids(productId);
 		 for(UserBid currentBid : currentProductBids){
 			 bidGateway.removeBid(currentBid.getId());
-			 notificationService.sendMail(currentBid.getAccountId(), new BidMessage(BidStatus.OUTBID, productId));
+             eventBus.post(new BidMessage(BidStatus.OUTBID, productId, currentBid.getAccountId()));
+			 //notificationService.sendMail(currentBid.getAccountId(), new BidMessage(BidStatus.OUTBID, productId));
 		 }
 	}
 
@@ -91,4 +102,11 @@ public class BiddingService {
 	
 		return true;
 	}
+
+    @Override
+    public void handle(Object event) {
+        final ProductExpiredMessage productExpiredMessage = (ProductExpiredMessage) event;
+        final UserBid winningBid = getWinnerBid(productExpiredMessage.getExpiredProductId());
+        eventBus.post(new BidMessage(BidStatus.WIN, winningBid.getProductId(), winningBid.getAccountId()));
+    }
 }

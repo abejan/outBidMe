@@ -27,7 +27,7 @@ public class NotificationsTest extends AbstractTest{
 	
 	
 	@Test
-    public void verify_user_is_notified_when_putbid(){
+    public void verify_user_is_notified_when_outbid(){
 		
 		UserBid loosingBid = biddingService.placeBid(TestUtils.TEST_ACCOUNT_ID_2, TestUtils.TEST_EXPIRED_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 1);
 		UserBid winningBid = biddingService.placeBid(TestUtils.TEST_ACCOUNT_ID, TestUtils.TEST_EXPIRED_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 2);

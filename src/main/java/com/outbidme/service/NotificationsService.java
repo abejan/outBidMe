@@ -1,6 +1,10 @@
 package com.outbidme.service;
 
+import com.outbidme.configuration.eventbus.EventBusService;
+import com.outbidme.configuration.eventbus.IEventBus;
+import com.outbidme.configuration.eventbus.IEventListener;
 import com.outbidme.model.authentication.Account;
+import com.outbidme.model.notifications.BidMessage;
 import com.outbidme.model.notifications.MailBox;
 import com.outbidme.model.notifications.Message;
 import com.outbidme.persistance.PersistanceFactory;
@@ -12,9 +16,15 @@ import com.outbidme.persistance.notifications.MailBoxGateway;
  * Performs messaging services as a result of user or system actions 
  * (i.e. bid win notifications, outbidding messages, user to user messaging etc.).
  */
-public class NotificationsService {
-	
-	public MailBox getAccountMailBox(int accountId) {
+public class NotificationsService implements IEventListener{
+
+    private final IEventBus eventBus = new EventBusService().getEventBus();
+
+    public NotificationsService() {
+        eventBus.register(this);
+    }
+
+    public MailBox getAccountMailBox(int accountId) {
 		Account account = retrieveAccount(accountId);
 		if(account != null){
 		   MailBoxGateway mbGateway = PersistanceFactory.getMailBoxGateway();
@@ -49,4 +59,9 @@ public class NotificationsService {
 		return account;
 	}
 
+    @Override
+    public void handle(Object event) {
+        final BidMessage bidMessage = (BidMessage) event;
+        sendMail(bidMessage.getAccountId(), bidMessage);
+    }
 }

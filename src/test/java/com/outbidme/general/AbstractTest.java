@@ -2,6 +2,7 @@ package com.outbidme.general;
 
 import static org.junit.Assert.assertEquals;
 
+import com.outbidme.configuration.eventbus.adapter.EventBusAdapter;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.mockito.MockitoAnnotations;
@@ -58,6 +59,7 @@ public class AbstractTest {
 
 	private static void registerSystemMocks() {
 		SystemConfiguration.Instance.registerComponent(Type.Persistance, InMemPersistanceManager.Instance);
+        SystemConfiguration.Instance.registerComponent(Type.EventBus, new EventBusAdapter());
 	}
 
     protected static void saveAccount(String username, String password){
