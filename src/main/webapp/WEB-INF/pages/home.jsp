@@ -19,7 +19,7 @@
 
 	<script type="text/javascript" src="<c:url value="/js/framework/angular.min.js"/>"></script>
  	<script type="text/javascript" src="<c:url value="/js/framework/jquery-1.11.1.min.js"/>"></script>
- 	<script type="text/javascript  src="<c:url value="/js/loginModule.js"/>"></script>
+ 	<script type="text/javascript" src="<c:url value="/js/loginModule.js"/>"></script>
 	<script src="<c:url value="/js/login.js"/>"></script>
 
 	<div id="header" class="row">
@@ -39,14 +39,14 @@
 		<div id="sign_in_link"  class="col-md-4 logo_neighbours" >
 			<div id="wrap">
 				<div id="regbar">
-					<div id="navthing">
+					<div id="navthing" ng-controller="LoginController as loginController"
+									   ng-submit="loginController.sendCredentials()">
 					    <div class = "link">
 						     <a href="#" id="loginLink">Login</a> 
 						       |
 						     <a href="#" id="registerLink">Register</a>
 					    </div> 															   
-						<div class="login" ng-controller="LoginController as loginController"
-										   ng-submit="loginController.sendCredentials()">
+						<div class="login">
 							<div class="arrow-up"></div>
 							<div class="formholder">
 								<div class="randompad">

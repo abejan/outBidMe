@@ -1,6 +1,7 @@
 package com.spring.controllers.authentication;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,9 +26,9 @@ public class AuthenticationController implements ILoginView{
 	}
 
 	@RequestMapping(value = ResourceConstants.LOGINPAGE_URL, method = RequestMethod.POST)
-	public ModelAndView submitCredentials(String username, String password){
+	public ModelAndView submitCredentials(@RequestBody Credentials credentials){
 
-		loginPresenter.loginAction(username, password);
+		loginPresenter.loginAction(credentials.getUsername(), credentials.getPassword());
 		
 
         boolean isAuthenticated = resultMessage.equals(AuthenticationMessages.LOGIN_SUCCESS.getMessage()) ?
@@ -35,7 +36,7 @@ public class AuthenticationController implements ILoginView{
         if (isAuthenticated) {
             ModelAndView mav = new ModelAndView(ResourceConstants.LOGIN_RESULT_PAGE_VIEW);
             mav.addObject("resultMessage", resultMessage);
-            mav.addObject("userName", username);
+            mav.addObject("userName", credentials.getUsername());
             mav.addObject("homePageLink", ResourceConstants.HOMEPAGE_HREF);
             mav.addObject("logoutLink", ResourceConstants.LOGOUTPAGE_HREF);
             return mav;
