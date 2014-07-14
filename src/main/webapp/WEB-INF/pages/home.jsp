@@ -9,18 +9,19 @@
 
  	<link href="<c:url value="/bootstrap/bootstrap.css" />" rel="stylesheet">
  	<link href="<c:url value="/theme/login.css"/>"  rel="stylesheet" media="screen" type="text/css" />
-	<link href="<c:url value="/theme/home.css"/>"    rel="stylesheet"/>
+	<link href="<c:url value="/theme/home.css"/>"   rel="stylesheet"/>
+ 	
+ 	<script type="text/javascript" src="<c:url value="/js/framework/angular.min.js"/>"></script>
+ 	<script type="text/javascript" src="<c:url value="/js/framework/jquery-1.11.1.min.js"/>"></script>
+ 	<script type="text/javascript" src="<c:url value="/js/controllers/loginControllers.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/js/ui/loginEvents.js"/>"></script>
  	
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>OutBidMe Home Page</title>
+
 </head>
 
 <body>
-
-	<script type="text/javascript" src="<c:url value="/js/framework/angular.min.js"/>"></script>
- 	<script type="text/javascript" src="<c:url value="/js/framework/jquery-1.11.1.min.js"/>"></script>
- 	<script type="text/javascript" src="<c:url value="/js/loginModule.js"/>"></script>
-	<script src="<c:url value="/js/login.js"/>"></script>
 
 	<div id="header" class="row">
 	
@@ -39,23 +40,22 @@
 		<div id="sign_in_link"  class="col-md-4 logo_neighbours" >
 			<div id="wrap">
 				<div id="regbar">
-					<div id="navthing" ng-controller="LoginController as loginController"
-									   ng-submit="loginController.sendCredentials()">
+					<div id="navthing">
 					    <div class = "link">
 						     <a href="#" id="loginLink">Login</a> 
 						       |
 						     <a href="#" id="registerLink">Register</a>
 					    </div> 															   
-						<div class="login">
+						<div class="login" ng-controller="LoginController as loginCtrl">
 							<div class="arrow-up"></div>
 							<div class="formholder">
 								<div class="randompad">
 									<fieldset>
 										<label name="email">Email</label> 
-										<input type="email" value="example@example.com" ng-model="loginController.credentials.username"/> 
+										<input type="email" value="example@example.com" ng-model="loginCtrl.credentials.username"/> 
 										<label name="password">Password</label>
-										<input type="password" ng-model="loginController.credentials.password"/> 
-										<input type="submit" value="Login" />
+										<input type="password" ng-model="loginCtrl.credentials.password"/> 
+										<input type="submit" value="Login"  ng-submit="loginCtrl.sendCredentials()" />
 									</fieldset>
 								</div>
 							</div>
