@@ -11,17 +11,17 @@
  	<link href="<c:url value="/theme/login.css"/>"  rel="stylesheet" media="screen" type="text/css" />
 	<link href="<c:url value="/theme/home.css"/>"   rel="stylesheet"/>
  	
- 	<script type="text/javascript" src="<c:url value="/js/framework/angular.min.js"/>"></script>
- 	<script type="text/javascript" src="<c:url value="/js/framework/jquery-1.11.1.min.js"/>"></script>
- 	<script type="text/javascript" src="<c:url value="/js/controllers/loginControllers.js"/>"></script>
-	<script type="text/javascript" src="<c:url value="/js/ui/loginEvents.js"/>"></script>
- 	
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>OutBidMe Home Page</title>
 
 </head>
 
 <body>
+
+	<script type="text/javascript" src="<c:url value="/js/framework/angular.min.js"/>"></script>
+ 	<script type="text/javascript" src="<c:url value="/js/framework/jquery-1.11.1.min.js"/>"></script>
+ 	<script type="text/javascript" src="<c:url value="/js/controllers/loginControllers.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/js/ui/loginEvents.js"/>"></script>
 
 	<div id="header" class="row">
 	
@@ -38,31 +38,42 @@
        	</div>
        	
 		<div id="sign_in_link"  class="col-md-4 logo_neighbours" >
-			<div id="wrap">
-				<div id="regbar">
+			<div id="wrap" ng-controller="LoginController as loginCtrl"
+						   ng-submit="loginCtrl.sendCredentials()">
+						   
+				<!-- Sign-in / Registration bar -->
+				<div id="regbar" ng-show="!isAuthenticated">
 					<div id="navthing">
 					    <div class = "link">
 						     <a href="#" id="loginLink">Login</a> 
 						       |
 						     <a href="#" id="registerLink">Register</a>
+						     {{authResponse}}
 					    </div> 															   
-						<div class="login" ng-controller="LoginController as loginCtrl">
+						<div class="login">
 							<div class="arrow-up"></div>
 							<div class="formholder">
 								<div class="randompad">
+								  <form>
 									<fieldset>
-										<label name="email">Email</label> 
-										<input type="email" value="example@example.com" ng-model="loginCtrl.credentials.username"/> 
+										<label name="username">Username</label> 
+										<input type="text" value="example@example.com" ng-model="loginCtrl.credentials.username"/> 
 										<label name="password">Password</label>
 										<input type="password" ng-model="loginCtrl.credentials.password"/> 
-										<input type="submit" value="Login"  ng-submit="loginCtrl.sendCredentials()" />
+										<input type="submit" value="Login"/>
 									</fieldset>
+								  </form>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+				
+			 	<!-- Authenticated user menu -->
+			    <div id="user-menu" ng-show="isAuthenticated">
+			        {{loginCtrl.getAuthenticatedMessage()}}
+			   </div>
+			   
 		</div>
 		
 	</div>

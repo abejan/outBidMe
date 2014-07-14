@@ -2,9 +2,9 @@ package com.spring.controllers.authentication;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-@JsonSerialize
+/**
+ *  Client request model pojo for authentication service.
+ */
 public class Credentials implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -25,7 +25,5 @@ public class Credentials implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
 	
 }

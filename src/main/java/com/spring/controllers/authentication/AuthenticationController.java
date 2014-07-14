@@ -1,5 +1,8 @@
 package com.spring.controllers.authentication;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.outbidme.presentation.authentication.AuthenticationMessages;
 import com.outbidme.presentation.authentication.ILoginView;
 import com.outbidme.presentation.authentication.LoginPresenter;
+import com.outbidme.util.StringConstants;
 import com.spring.controllers.general.ResourceConstants;
 
 @Controller
@@ -26,23 +30,18 @@ public class AuthenticationController implements ILoginView{
 	}
 
 	@RequestMapping(value = ResourceConstants.LOGINPAGE_URL, method = RequestMethod.POST)
-	public ModelAndView submitCredentials(@RequestBody Credentials credentials){
+	public ResponseEntity<AuthResponse>  submitCredentials(@RequestBody Credentials credentials){
 
 		loginPresenter.loginAction(credentials.getUsername(), credentials.getPassword());
-		
 
         boolean isAuthenticated = resultMessage.equals(AuthenticationMessages.LOGIN_SUCCESS.getMessage()) ?
-                Boolean.TRUE : Boolean.FALSE;
-        if (isAuthenticated) {
-            ModelAndView mav = new ModelAndView(ResourceConstants.LOGIN_RESULT_PAGE_VIEW);
-            mav.addObject("resultMessage", resultMessage);
-            mav.addObject("userName", credentials.getUsername());
-            mav.addObject("homePageLink", ResourceConstants.HOMEPAGE_HREF);
-            mav.addObject("logoutLink", ResourceConstants.LOGOUTPAGE_HREF);
-            return mav;
-        } else {
-            return new ModelAndView(ResourceConstants.HOMEPAGE_VIEW);
-        }
+        						  Boolean.TRUE : Boolean.FALSE;
+        String message = isAuthenticated ? "Welcome, " + credentials.getUsername() : StringConstants.EMPTY;
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        
+        return new ResponseEntity<AuthResponse>( new AuthResponse(isAuthenticated, message), headers, HttpStatus.CREATED);
 	}
 
     @RequestMapping(value = ResourceConstants.LOGOUTPAGE_URL, method = RequestMethod.GET)

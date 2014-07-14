@@ -1,15 +1,14 @@
 $(document).ready(function() {
 	$('input[type="submit"]').mousedown(function(){
 		  $(this).css('background', '#2ecc71');
-		});
-		$('input[type="submit"]').mouseup(function(){
+	});
+	$('input[type="submit"]').mouseup(function(){
 		  $(this).css('background', '#1abc9c');
-		});
-
-		$('#loginLink').click(function(){
+	});
+	$('#loginLink').click(function(){
 		  $('.login').fadeToggle('slow');
 		  $(this).toggleClass('green');
-		});
+	});
 
 });
 
