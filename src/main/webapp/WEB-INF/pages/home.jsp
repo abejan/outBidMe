@@ -48,7 +48,7 @@
 						     <a href="#" id="loginLink">Login</a> 
 						       |
 						     <a href="#" id="registerLink">Register</a>
-						     {{authResponse}}
+						     {{authMessage}}
 					    </div> 															   
 						<div class="login">
 							<div class="arrow-up"></div>

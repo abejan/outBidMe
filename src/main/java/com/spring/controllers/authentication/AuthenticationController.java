@@ -1,13 +1,11 @@
 package com.spring.controllers.authentication;
 
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,14 +21,9 @@ public class AuthenticationController implements ILoginView{
 
 	private String resultMessage;
     private LoginPresenter loginPresenter = new LoginPresenter(this);
-	
-	@RequestMapping(value = ResourceConstants.LOGINPAGE_URL, method = RequestMethod.GET)
-	public String loginStart(){
-		return ResourceConstants.LOGINPAGE_VIEW;
-	}
 
 	@RequestMapping(value = ResourceConstants.LOGINPAGE_URL, method = RequestMethod.POST)
-	public ResponseEntity<AuthResponse>  submitCredentials(@RequestBody Credentials credentials){
+	public @ResponseBody AuthResponse submitCredentials(@RequestBody Credentials credentials){
 
 		loginPresenter.loginAction(credentials.getUsername(), credentials.getPassword());
 
@@ -38,10 +31,7 @@ public class AuthenticationController implements ILoginView{
         						  Boolean.TRUE : Boolean.FALSE;
         String message = isAuthenticated ? "Welcome, " + credentials.getUsername() : StringConstants.EMPTY;
         
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json");
-        
-        return new ResponseEntity<AuthResponse>( new AuthResponse(isAuthenticated, message), headers, HttpStatus.CREATED);
+        return new AuthResponse(isAuthenticated, message);
 	}
 
     @RequestMapping(value = ResourceConstants.LOGOUTPAGE_URL, method = RequestMethod.GET)

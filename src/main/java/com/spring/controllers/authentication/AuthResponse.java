@@ -2,8 +2,6 @@ package com.spring.controllers.authentication;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 /**
  *  Simle pojo representing the response model for the authentication service client.
  */
@@ -16,7 +14,6 @@ public class AuthResponse implements Serializable{
 	
 	
 	public AuthResponse(boolean isAuthenticated, String authMessage) {
-		super();
 		this.isAuthenticated = isAuthenticated;
 		this.authMessage = authMessage;
 	}

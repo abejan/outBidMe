@@ -1,30 +1,44 @@
-var loginModule = angular.module('login', []);
+var loginModule = angular.module('login', [])
 
-loginModule.controller("LoginController", ["$scope", "$http", "$q" , function($scope, $http, $q){
-	
-	this.credentials = {};
-	this.authMessage = "";
-	this.promise =-$q.defer();
-	
-	this.sendCredentials = function(){
-	    $http({
-            method: "post",
-            url:    "sign-in",
-            data:    this.credentials
-        }).success(response());
-	};
-	
-	this.resetCredentials = function(){
-		this.credentials = {};
-	};
-	
-	this.getAuthenticatedMessage = function(){
-		return this.authMessage;
-	};
-	
-	/*Private members*/
-	var response = function(data){
-	    $scope.authResponse = data;
-	};
+  .factory('postCredentialsService', function($http, $q){
+	  
+		  var service = {};
+		  
+		  service.doPost = function(credentials){
+			  
+			  var deferred = $q.defer();
+			  
+			  $http({
+		            method: "post",
+		            url:    "sign-in",
+		            data:   credentials
+		       }).success( function(data){
+		    	    deferred.resolve(data);
+			   }).error(function(data){
+				    deferred.reject(data);
+			   });
+			    
+			  return deferred.promise;
+		  };
+		  
+		  return service;
+  })
+
+  .controller("LoginController", ["$scope", "postCredentialsService", function($scope, postCredentialsService){
+
+	  	init();
+		  
+		function init(){
+			this.credentials = {};
+			$scope.authMessage = "Test";
+		};
+		
+		this.sendCredentials = function(){
+			postCredentialsService.doPost(this.credentials).then(function(response) {
+	             $scope.authMessage = response;
+	          }, function(error) {
+	        	 $scope.authMessage = "A server error occured while processing credentials: " + error;
+	          }); 
+		};
 	
 }]);
