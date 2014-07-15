@@ -19,15 +19,17 @@ import com.outbidme.persistance.product.ProductGateway;
 import com.spring.persistance.InMemPersistanceManager;
 
 /**
+ * Base class for all tests in the project, through which Mockito initializations is done.
  * Created by anita on 5/13/2014.
  */
-public class AbstractTest {
+public abstract class AbstractTest {
     private static PersistanceManager persistanceManager;
     private static boolean isSetup = false;
 
     @Before
     public void initMockito(){
         MockitoAnnotations.initMocks(this);
+        
     }
 
     @BeforeClass
