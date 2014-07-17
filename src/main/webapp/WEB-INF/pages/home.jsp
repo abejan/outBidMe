@@ -9,6 +9,7 @@
 
  	<link href="<c:url value="/bootstrap/bootstrap.css" />" rel="stylesheet">
  	<link href="<c:url value="/theme/login.css"/>"  rel="stylesheet" media="screen" type="text/css" />
+ 	<link href="<c:url value="/theme/usermenu.css"/>"  rel="stylesheet" media="screen" type="text/css" />
 	<link href="<c:url value="/theme/home.css"/>"   rel="stylesheet"/>
  	
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -42,13 +43,12 @@
 						   ng-submit="loginCtrl.sendCredentials()">
 						   
 				<!-- Sign-in / Registration bar -->
-				<div id="regbar" ng-show="!isAuthenticated">
+				<div id="regbar" ng-hide = "authenticated">
 					<div id="navthing">
 					    <div class = "link">
 						     <a href="#" id="loginLink">Login</a> 
 						       |
 						     <a href="#" id="registerLink">Register</a>
-						     {{authMessage}}
 					    </div> 															   
 						<div class="login">
 							<div class="arrow-up"></div>
@@ -57,7 +57,7 @@
 								  <form>
 									<fieldset>
 										<label name="username">Username</label> 
-										<input type="text" value="example@example.com" ng-model="loginCtrl.credentials.username"/> 
+										<input type="text" ng-model="loginCtrl.credentials.username"/> 
 										<label name="password">Password</label>
 										<input type="password" ng-model="loginCtrl.credentials.password"/> 
 										<input type="submit" value="Login"/>
@@ -70,8 +70,19 @@
 				</div>
 				
 			 	<!-- Authenticated user menu -->
-			    <div id="user-menu" ng-show="isAuthenticated">
-			        {{loginCtrl.getAuthenticatedMessage()}}
+			    <div id="user-menu" class="row" ng-show="authenticated">
+			    	<div id="welcome-message" class="col-md-3">
+			   		   <label>{{authMessage}}</label>
+			   		</div>
+			   		<div id="notifications" class="col-md-3">
+			   		   <label class="user-option">Notifications</label>
+			   		</div>
+			   		<div id="cart" class="col-md-3">
+			   		   <label class="user-option">Cart</label>
+			   		</div>
+			   		<div id="account" class="col-md-3">
+			   		   <label class="user-option">Account</label>
+			   		</div>
 			   </div>
 			   
 		</div>

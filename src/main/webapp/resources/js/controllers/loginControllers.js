@@ -30,12 +30,13 @@ var loginModule = angular.module('login', [])
 		  
 		function init(){
 			this.credentials = {};
-			$scope.authMessage = "Test";
+			$scope.authMessage = "";
 		};
 		
 		this.sendCredentials = function(){
 			postCredentialsService.doPost(this.credentials).then(function(response) {
-	             $scope.authMessage = response;
+	             $scope.authMessage   = response.authMessage;
+	             $scope.authenticated = response.authenticated;
 	          }, function(error) {
 	        	 $scope.authMessage = "A server error occured while processing credentials: " + error;
 	          }); 
