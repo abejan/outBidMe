@@ -14,7 +14,7 @@ import com.outbidme.model.product.BidStatus;
 import com.outbidme.model.product.Product;
 import com.outbidme.model.product.UserBid;
 import com.outbidme.persistance.PersistanceFactory;
-import com.outbidme.persistance.product.ProductGateway;
+import com.outbidme.persistance.dao.product.ProductDAO;
 
 /**
  * Schedules, or runs a job on demand responsible for checking whether products have expired or not, 
@@ -22,7 +22,7 @@ import com.outbidme.persistance.product.ProductGateway;
  */
 public class ExpirationCheckService {
 
-	private final ProductGateway productGateway  = PersistanceFactory.getProductGateway();
+	private final ProductDAO productGateway  = PersistanceFactory.getProductDataAccessObj();
 //	private final NotificationsService notificationService = new NotificationsService();
 //	private final BiddingService 	   biddingService	   = new BiddingService();
 	

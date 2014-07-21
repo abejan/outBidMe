@@ -13,8 +13,8 @@ import com.outbidme.model.product.Product;
 import com.outbidme.model.product.UserBid;
 import com.outbidme.persistance.PersistanceFactory;
 import com.outbidme.persistance.PersistenceException;
-import com.outbidme.persistance.product.ProductGateway;
-import com.outbidme.persistance.product.UserBidGateway;
+import com.outbidme.persistance.dao.product.ProductDAO;
+import com.outbidme.persistance.dao.product.UserBidDAO;
 
 
 /**
@@ -22,7 +22,7 @@ import com.outbidme.persistance.product.UserBidGateway;
  */
 public class BiddingService implements IEventListener{
 	
-    private final ProductGateway productGateway = PersistanceFactory.getProductGateway();
+    private final ProductDAO productGateway = PersistanceFactory.getProductDataAccessObj();
     private final IEventBus eventBus = new EventBusService().getEventBus();
     //private final NotificationsService notificationService = new NotificationsService();
 
@@ -49,7 +49,7 @@ public class BiddingService implements IEventListener{
 	}
 
 	public void removeUserBidOnProduct(int bidId) {
-		UserBidGateway bidGateway = PersistanceFactory.getUserBidGateway();
+		UserBidDAO bidGateway = PersistanceFactory.getUserBidDataAccessObj();
 		bidGateway.removeBid(bidId);
 	}
 	
@@ -57,7 +57,7 @@ public class BiddingService implements IEventListener{
 	 * Returns the winning bid on the given product.
 	 */
 	public UserBid getWinnerBid(int productId) {
-		UserBidGateway bidGateway = PersistanceFactory.getUserBidGateway();
+		UserBidDAO bidGateway = PersistanceFactory.getUserBidDataAccessObj();
 		List<UserBid> bidsForProduct = bidGateway.findAllBids(productId);
         if (!bidsForProduct.isEmpty()) {
 		    Collections.sort(bidsForProduct);
@@ -67,7 +67,7 @@ public class BiddingService implements IEventListener{
 	}
 	
 	private UserBid createAndPersistUserBid(int accountId, int productId, double bidPrice) throws PersistenceException {
-		  UserBidGateway bidGateway = PersistanceFactory.getUserBidGateway();
+		  UserBidDAO bidGateway = PersistanceFactory.getUserBidDataAccessObj();
 		  int id = bidGateway.getNextValidId();
 		  
 		  UserBid userBid = new UserBid(id, accountId, productId, bidPrice);
@@ -77,7 +77,7 @@ public class BiddingService implements IEventListener{
 	}
 
 	private void removeCurrentWinBid( int productId) {
-		 UserBidGateway bidGateway = PersistanceFactory.getUserBidGateway();
+		 UserBidDAO bidGateway = PersistanceFactory.getUserBidDataAccessObj();
 		 List<UserBid> currentProductBids = bidGateway.findAllBids(productId);
 		 for(UserBid currentBid : currentProductBids){
 			 bidGateway.removeBid(currentBid.getId());

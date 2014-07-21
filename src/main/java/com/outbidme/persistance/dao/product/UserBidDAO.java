@@ -1,11 +1,11 @@
-package com.outbidme.persistance.product;
+package com.outbidme.persistance.dao.product;
 
 import java.util.List;
 
 import com.outbidme.model.product.UserBid;
 import com.outbidme.persistance.PersistenceException;
 
-public interface UserBidGateway {
+public interface UserBidDAO {
 
 	public void persist(UserBid userBid) throws PersistenceException;
 

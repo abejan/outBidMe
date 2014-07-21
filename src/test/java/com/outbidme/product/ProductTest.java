@@ -11,11 +11,11 @@ import com.outbidme.general.TestUtils;
 import com.outbidme.model.product.Product;
 import com.outbidme.persistance.PersistanceFactory;
 import com.outbidme.persistance.PersistenceException;
-import com.outbidme.persistance.product.ProductGateway;
+import com.outbidme.persistance.dao.product.ProductDAO;
 
 public class ProductTest extends AbstractTest {
 
-    private final static ProductGateway productGateway = PersistanceFactory.getProductGateway();
+    private final static ProductDAO productGateway = PersistanceFactory.getProductDataAccessObj();
 
     @Test
     public void can_create_product(){

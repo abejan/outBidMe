@@ -14,8 +14,8 @@ import com.outbidme.model.product.Product;
 import com.outbidme.persistance.PersistanceFactory;
 import com.outbidme.persistance.PersistanceManager;
 import com.outbidme.persistance.PersistenceException;
-import com.outbidme.persistance.authentication.AccountGateway;
-import com.outbidme.persistance.product.ProductGateway;
+import com.outbidme.persistance.dao.authentication.AccountDAO;
+import com.outbidme.persistance.dao.product.ProductDAO;
 import com.spring.persistance.InMemPersistanceManager;
 
 /**
@@ -50,7 +50,7 @@ public abstract class AbstractTest {
     }
 
 	private static void saveProduct(Product product) {
-	    ProductGateway productGateway = PersistanceFactory.getProductGateway();
+	    ProductDAO productGateway = PersistanceFactory.getProductDataAccessObj();
         try {
             productGateway.persist(product);
         } catch (PersistenceException e) {
@@ -65,7 +65,7 @@ public abstract class AbstractTest {
 	}
 
     protected static void saveAccount(String username, String password){
-        AccountGateway accountGateway = PersistanceFactory.getAccountGateway();
+        AccountDAO accountGateway = PersistanceFactory.getAccountDataAccessObj();
         Account account = new Account(accountGateway.getNextValidId(), username, password);
         try {
             accountGateway.persist(account);

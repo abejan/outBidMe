@@ -2,7 +2,7 @@ package com.outbidme.service;
 
 import com.outbidme.model.authentication.Account;
 import com.outbidme.persistance.PersistanceFactory;
-import com.outbidme.persistance.authentication.AccountGateway;
+import com.outbidme.persistance.dao.authentication.AccountDAO;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -48,7 +48,7 @@ public class AuthenticationService {
     }
 
     private Account getAccount(String username, String password) {
-        final AccountGateway accountGateway = PersistanceFactory.getAccountGateway();
+        final AccountDAO accountGateway = PersistanceFactory.getAccountDataAccessObj();
         return accountGateway.findAccountByUserName(username);
 
     }

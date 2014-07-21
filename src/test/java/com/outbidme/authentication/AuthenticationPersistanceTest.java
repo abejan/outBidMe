@@ -12,11 +12,11 @@ import com.outbidme.general.TestUtils;
 import com.outbidme.model.authentication.Account;
 import com.outbidme.persistance.PersistanceFactory;
 import com.outbidme.persistance.PersistenceException;
-import com.outbidme.persistance.authentication.AccountGateway;
+import com.outbidme.persistance.dao.authentication.AccountDAO;
 
 public class AuthenticationPersistanceTest extends AbstractTest{
 	
-    private static final AccountGateway accountGateway = PersistanceFactory.getAccountGateway();
+    private static final AccountDAO accountGateway = PersistanceFactory.getAccountDataAccessObj();
 
 	@Test
 	public void can_retrieve_an_existing_account_with_username(){

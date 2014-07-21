@@ -10,7 +10,7 @@ import com.outbidme.general.TestUtils;
 import com.outbidme.model.product.UserBid;
 import com.outbidme.persistance.PersistanceFactory;
 import com.outbidme.persistance.PersistenceException;
-import com.outbidme.persistance.product.UserBidGateway;
+import com.outbidme.persistance.dao.product.UserBidDAO;
 import com.outbidme.service.BiddingService;
 
 public class BiddingTest extends AbstractTest{
@@ -18,7 +18,7 @@ public class BiddingTest extends AbstractTest{
 	/** Always perform cleanup of any newly added bids in tests to avoid test failures */
 	
 	private final static BiddingService biddingService = new BiddingService();
-	private final static UserBidGateway biddingGateway = PersistanceFactory.getUserBidGateway();
+	private final static UserBidDAO biddingGateway = PersistanceFactory.getUserBidDataAccessObj();
 	
 	
 	

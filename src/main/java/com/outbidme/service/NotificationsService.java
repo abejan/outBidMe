@@ -9,8 +9,8 @@ import com.outbidme.model.notifications.MailBox;
 import com.outbidme.model.notifications.Message;
 import com.outbidme.persistance.PersistanceFactory;
 import com.outbidme.persistance.PersistenceException;
-import com.outbidme.persistance.authentication.AccountGateway;
-import com.outbidme.persistance.notifications.MailBoxGateway;
+import com.outbidme.persistance.dao.authentication.AccountDAO;
+import com.outbidme.persistance.dao.notifications.MailBoxDAO;
 
 /**
  * Performs messaging services as a result of user or system actions 
@@ -27,7 +27,7 @@ public class NotificationsService implements IEventListener{
     public MailBox getAccountMailBox(int accountId) {
 		Account account = retrieveAccount(accountId);
 		if(account != null){
-		   MailBoxGateway mbGateway = PersistanceFactory.getMailBoxGateway();
+		   MailBoxDAO mbGateway = PersistanceFactory.getMailBoxDataAccessObj();
 		   MailBox mb = mbGateway.findMailBoxForAccount(account.getId());
 		   if(mb == null){
 			 //MailBox does not exist; create mail for requested account
@@ -43,7 +43,7 @@ public class NotificationsService implements IEventListener{
 		mailBox.addMessage(message);
 	}
 	
-	private MailBox createAndPersistMailBox(int accountId, MailBoxGateway mbGateway) {
+	private MailBox createAndPersistMailBox(int accountId, MailBoxDAO mbGateway) {
 		  MailBox mb = new MailBox(accountId);
 		  try {
 			mbGateway.persist(mb);
@@ -54,7 +54,7 @@ public class NotificationsService implements IEventListener{
 	}
 
 	private Account retrieveAccount(int accountId) {
-		  AccountGateway accountGateway = PersistanceFactory.getAccountGateway();
+		  AccountDAO accountGateway = PersistanceFactory.getAccountDataAccessObj();
 		  Account account = accountGateway.findAccountById(accountId);
 		return account;
 	}
