@@ -11,7 +11,7 @@ public interface AccountDAO {
 
 	public Account findAccountByUserName(String username);
 
-	public void removeAccountWithUsername(String string);
+	public void removeAccountWithUsername(String username);
 
 	public int getNextValidId();
 

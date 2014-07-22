@@ -7,13 +7,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.outbidme.general.AbstractTest;
 import com.outbidme.util.StringConstants;
 
 /**
  * Base class for all Spring controller tests in the project, through which Mock MVC library initializations are done.
  */
-public abstract class AbstractControllerTest extends AbstractTest {
+public abstract class AbstractControllerTest extends AbstractSpringTest {
 
 	protected MockMvc mockMvc;
 	

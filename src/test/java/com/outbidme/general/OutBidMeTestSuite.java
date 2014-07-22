@@ -22,5 +22,5 @@ import com.outbidme.product.ProductTest;
   BiddingTest.class,
   NotificationsTest.class
 })
-public class AllTests{
+public final class OutBidMeTestSuite{
 }

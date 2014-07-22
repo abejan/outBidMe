@@ -22,6 +22,12 @@ public enum SystemConfiguration {
 	
 	private Map<Type, Object> componentRegistry = new HashMap<Type, Object>(2);
 	
+	
+	public void setConfiguration(Map<Type, Object> fullConfiguration){
+		if(fullConfiguration != null)
+		   this.componentRegistry = fullConfiguration;
+	}
+	
 	public void registerComponent(Type compType, Object component){
 		assert (compType != null && component != null) : "Component can not be null";
 		componentRegistry.put(compType, component);
@@ -41,6 +47,6 @@ public enum SystemConfiguration {
 	}
 	
 	public IEventBus getEventBus(){
-	    return (IEventBus) getComponent(SystemConfiguration.Type.EventBus);
+	    return (IEventBus) getComponent(Type.EventBus);
 	}
 }

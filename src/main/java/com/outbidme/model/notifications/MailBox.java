@@ -2,13 +2,18 @@ package com.outbidme.model.notifications;
 
 import java.util.Stack;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 
 /**
  * Represents a container of messages associated to an account.
  */
+@Entity
 public class MailBox {
 
-	private int accountId = -1;
+	@Id
+	private int accountId;
 	private Stack<Message> messages;
 	
 	public MailBox(int accountId) {

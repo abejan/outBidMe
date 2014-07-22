@@ -15,8 +15,6 @@ public interface UserBidDAO {
 
 	public List<UserBid> findAllBids(int productId);
 	
-	public void removeBidForProduct(int productId);
-
 	public void removeAllBids();
 
 }

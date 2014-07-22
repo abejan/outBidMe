@@ -41,7 +41,6 @@ public class UserBidDAOImpl extends AbstractEntityDAO implements UserBidDAO{
 		return toList(results);
 	}
 
-	@Override
 	public void removeBidForProduct(final int productId) {
 		 getPersistanceManager().removeEntity(new EntityMatcher<UserBid>() {
 				public boolean matches(UserBid entity) {
