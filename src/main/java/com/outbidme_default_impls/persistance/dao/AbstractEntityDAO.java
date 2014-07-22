@@ -1,4 +1,4 @@
-package com.outbidme.persistance.dao.impl;
+package com.outbidme_default_impls.persistance.dao;
 
 import java.util.ArrayList;
 import java.util.Collection;

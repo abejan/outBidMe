@@ -4,9 +4,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Product {
 	
     private static final int DEFAULT_EXPIRATION_DAYS = 10;
+    
+    @Id
 	private int id;
     private String name;
     private String description;

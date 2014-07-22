@@ -1,39 +1,26 @@
 package com.outbidme.persistance;
 
-import com.outbidme.configuration.SystemConfiguration;
-import com.outbidme.configuration.SystemConfiguration.Type;
 import com.outbidme.persistance.dao.authentication.AccountDAO;
-import com.outbidme.persistance.dao.impl.authentication.AccountDAOImpl;
-import com.outbidme.persistance.dao.impl.notifications.MailBoxDAOImpl;
-import com.outbidme.persistance.dao.impl.product.ProductDAOImpl;
-import com.outbidme.persistance.dao.impl.product.UserBidDAOImpl;
 import com.outbidme.persistance.dao.notifications.MailBoxDAO;
 import com.outbidme.persistance.dao.product.ProductDAO;
 import com.outbidme.persistance.dao.product.UserBidDAO;
 
+
 /**
  * Responsible for creating implementations of your faveourite OutBidMe DAOs.
+ * This will be treated as a pluginable component of OutBidMe. The default implemenations resides in the 
+ * "com.outbidme_default_impls" package which can be used for testing without a Database component or an ORM framework.
  */
-public class PersistanceFactory {
+public interface PersistanceFactory {
 
-	public static AccountDAO getAccountDataAccessObj() {
-		return new AccountDAOImpl(getPersistanceManager());
-	}
-
-    public static ProductDAO getProductDataAccessObj() {
-        return new ProductDAOImpl(getPersistanceManager());
-    }
-
-	public static UserBidDAO getUserBidDataAccessObj() {
-		return new UserBidDAOImpl(getPersistanceManager());
-	}
+	public AccountDAO getAccountDataAccessObj();
 	
-	public static MailBoxDAO getMailBoxDataAccessObj() {
-		return new MailBoxDAOImpl(getPersistanceManager());
-	}
+    public ProductDAO getProductDataAccessObj();
+    
+	public UserBidDAO getUserBidDataAccessObj();
 	
-	public static PersistanceManager getPersistanceManager() {
-	    return (PersistanceManager) SystemConfiguration.Instance.getComponent(Type.Persistance);
-	}
+	public MailBoxDAO getMailBoxDataAccessObj();
+
+	public PersistanceManager getPersistanceManager();
 	
 }

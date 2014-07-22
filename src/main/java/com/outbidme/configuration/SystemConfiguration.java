@@ -3,6 +3,9 @@ package com.outbidme.configuration;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.outbidme.configuration.eventbus.IEventBus;
+import com.outbidme.persistance.PersistanceFactory;
+
 
 
 /**
@@ -13,7 +16,7 @@ public enum SystemConfiguration {
 	Instance;
 
 	public static enum Type{
-		Persistance,
+		PersistanceFactory,
         EventBus
 	}
 	
@@ -30,5 +33,14 @@ public enum SystemConfiguration {
 		return component;
 	}
 	
+	 
+	/*------------  Convenience methods below ---------------*/
 	
+	public PersistanceFactory getPersistanceFactoryComponent(){
+		return (PersistanceFactory) getComponent(Type.PersistanceFactory);
+	}
+	
+	public IEventBus getEventBus(){
+	    return (IEventBus) getComponent(SystemConfiguration.Type.EventBus);
+	}
 }

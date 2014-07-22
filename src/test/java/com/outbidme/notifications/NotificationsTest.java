@@ -4,10 +4,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 import org.junit.Test;
-import org.junit.internal.runners.statements.Fail;
 
 import com.outbidme.general.AbstractTest;
 import com.outbidme.general.TestUtils;

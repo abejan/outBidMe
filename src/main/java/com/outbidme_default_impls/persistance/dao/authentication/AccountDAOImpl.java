@@ -1,4 +1,4 @@
-package com.outbidme.persistance.dao.impl.authentication;
+package com.outbidme_default_impls.persistance.dao.authentication;
 
 import java.util.Collection;
 
@@ -7,7 +7,7 @@ import com.outbidme.persistance.EntityMatcher;
 import com.outbidme.persistance.PersistanceManager;
 import com.outbidme.persistance.PersistenceException;
 import com.outbidme.persistance.dao.authentication.AccountDAO;
-import com.outbidme.persistance.dao.impl.AbstractEntityDAO;
+import com.outbidme_default_impls.persistance.dao.AbstractEntityDAO;
 
 public class AccountDAOImpl extends AbstractEntityDAO implements AccountDAO{
 

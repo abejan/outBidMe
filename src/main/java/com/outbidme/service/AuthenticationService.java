@@ -1,15 +1,15 @@
 package com.outbidme.service;
 
-import com.outbidme.model.authentication.Account;
-import com.outbidme.persistance.PersistanceFactory;
-import com.outbidme.persistance.dao.authentication.AccountDAO;
-
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class AuthenticationService {
-    private Set<Account> loggedAccounts = new HashSet<Account>();
+import com.outbidme.model.authentication.Account;
+import com.outbidme.persistance.dao.authentication.AccountDAO;
+
+public class AuthenticationService extends OutBidMeService{
+	
+    private final Set<Account> loggedAccounts = new HashSet<Account>();
 
     public boolean login(String username, String password) {
         if (isLoggedIn(username)){
@@ -48,7 +48,7 @@ public class AuthenticationService {
     }
 
     private Account getAccount(String username, String password) {
-        final AccountDAO accountGateway = PersistanceFactory.getAccountDataAccessObj();
+        final AccountDAO accountGateway = persistanceFactory.getAccountDataAccessObj();
         return accountGateway.findAccountByUserName(username);
 
     }

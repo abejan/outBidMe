@@ -1,13 +1,10 @@
 package com.outbidme.service;
 
-import com.outbidme.configuration.eventbus.EventBusService;
-import com.outbidme.configuration.eventbus.IEventBus;
 import com.outbidme.configuration.eventbus.IEventListener;
 import com.outbidme.model.authentication.Account;
 import com.outbidme.model.notifications.BidMessage;
 import com.outbidme.model.notifications.MailBox;
 import com.outbidme.model.notifications.Message;
-import com.outbidme.persistance.PersistanceFactory;
 import com.outbidme.persistance.PersistenceException;
 import com.outbidme.persistance.dao.authentication.AccountDAO;
 import com.outbidme.persistance.dao.notifications.MailBoxDAO;
@@ -16,10 +13,9 @@ import com.outbidme.persistance.dao.notifications.MailBoxDAO;
  * Performs messaging services as a result of user or system actions 
  * (i.e. bid win notifications, outbidding messages, user to user messaging etc.).
  */
-public class NotificationsService implements IEventListener{
+public class NotificationsService extends OutBidMeService implements IEventListener{
 
-    private final IEventBus eventBus = new EventBusService().getEventBus();
-
+	
     public NotificationsService() {
         eventBus.register(this);
     }
@@ -27,7 +23,7 @@ public class NotificationsService implements IEventListener{
     public MailBox getAccountMailBox(int accountId) {
 		Account account = retrieveAccount(accountId);
 		if(account != null){
-		   MailBoxDAO mbGateway = PersistanceFactory.getMailBoxDataAccessObj();
+		   MailBoxDAO mbGateway = persistanceFactory.getMailBoxDataAccessObj();
 		   MailBox mb = mbGateway.findMailBoxForAccount(account.getId());
 		   if(mb == null){
 			 //MailBox does not exist; create mail for requested account
@@ -54,7 +50,7 @@ public class NotificationsService implements IEventListener{
 	}
 
 	private Account retrieveAccount(int accountId) {
-		  AccountDAO accountGateway = PersistanceFactory.getAccountDataAccessObj();
+		  AccountDAO accountGateway = persistanceFactory.getAccountDataAccessObj();
 		  Account account = accountGateway.findAccountById(accountId);
 		return account;
 	}

@@ -1,4 +1,4 @@
-package com.outbidme.persistance.dao.impl.product;
+package com.outbidme_default_impls.persistance.dao.product;
 
 import java.util.Collection;
 import java.util.List;
@@ -7,8 +7,8 @@ import com.outbidme.model.product.UserBid;
 import com.outbidme.persistance.EntityMatcher;
 import com.outbidme.persistance.PersistanceManager;
 import com.outbidme.persistance.PersistenceException;
-import com.outbidme.persistance.dao.impl.AbstractEntityDAO;
 import com.outbidme.persistance.dao.product.UserBidDAO;
+import com.outbidme_default_impls.persistance.dao.AbstractEntityDAO;
 
 public class UserBidDAOImpl extends AbstractEntityDAO implements UserBidDAO{
 

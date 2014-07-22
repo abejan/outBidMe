@@ -1,4 +1,4 @@
-package com.outbidme.persistance.dao.impl.notifications;
+package com.outbidme_default_impls.persistance.dao.notifications;
 
 import java.util.Collection;
 
@@ -6,8 +6,8 @@ import com.outbidme.model.notifications.MailBox;
 import com.outbidme.persistance.EntityMatcher;
 import com.outbidme.persistance.PersistanceManager;
 import com.outbidme.persistance.PersistenceException;
-import com.outbidme.persistance.dao.impl.AbstractEntityDAO;
 import com.outbidme.persistance.dao.notifications.MailBoxDAO;
+import com.outbidme_default_impls.persistance.dao.AbstractEntityDAO;
 
 public class MailBoxDAOImpl extends AbstractEntityDAO implements MailBoxDAO {
 

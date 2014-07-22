@@ -2,11 +2,11 @@ package com.outbidme.general;
 
 import static org.junit.Assert.assertEquals;
 
-import com.outbidme.configuration.eventbus.adapter.EventBusAdapter;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.mockito.MockitoAnnotations;
 
+import com.guava.eventbus.adapter.EventBusAdapter;
 import com.outbidme.configuration.SystemConfiguration;
 import com.outbidme.configuration.SystemConfiguration.Type;
 import com.outbidme.model.authentication.Account;
@@ -16,13 +16,15 @@ import com.outbidme.persistance.PersistanceManager;
 import com.outbidme.persistance.PersistenceException;
 import com.outbidme.persistance.dao.authentication.AccountDAO;
 import com.outbidme.persistance.dao.product.ProductDAO;
-import com.spring.persistance.InMemPersistanceManager;
+import com.outbidme_default_impls.persistance.DefaultPersistanceFactory;
 
 /**
  * Base class for all tests in the project, through which Mockito initializations is done.
  * Created by anita on 5/13/2014.
  */
 public abstract class AbstractTest {
+	
+	protected static PersistanceFactory persistanceFactory;
     private static PersistanceManager persistanceManager;
     private static boolean isSetup = false;
 
@@ -41,7 +43,9 @@ public abstract class AbstractTest {
         
         registerSystemMocks();
         
-        persistanceManager = PersistanceFactory.getPersistanceManager();
+        persistanceFactory = SystemConfiguration.Instance.getPersistanceFactoryComponent();
+        persistanceManager = persistanceFactory.getPersistanceManager();
+        
         saveAccount(TestUtils.TEST_USERNAME, TestUtils.TEST_PASSWORD);
         saveAccount(TestUtils.TEST_USERNAME_2, TestUtils.TEST_PASSWORD_2);
         saveProduct(TestUtils.getDefaultProductInstance());
@@ -50,7 +54,7 @@ public abstract class AbstractTest {
     }
 
 	private static void saveProduct(Product product) {
-	    ProductDAO productGateway = PersistanceFactory.getProductDataAccessObj();
+	    ProductDAO productGateway = persistanceFactory.getProductDataAccessObj();
         try {
             productGateway.persist(product);
         } catch (PersistenceException e) {
@@ -60,12 +64,12 @@ public abstract class AbstractTest {
 	}
 
 	private static void registerSystemMocks() {
-		SystemConfiguration.Instance.registerComponent(Type.Persistance, InMemPersistanceManager.Instance);
+		SystemConfiguration.Instance.registerComponent(Type.PersistanceFactory, new DefaultPersistanceFactory());
         SystemConfiguration.Instance.registerComponent(Type.EventBus, new EventBusAdapter());
 	}
 
     protected static void saveAccount(String username, String password){
-        AccountDAO accountGateway = PersistanceFactory.getAccountDataAccessObj();
+        AccountDAO accountGateway = persistanceFactory.getAccountDataAccessObj();
         Account account = new Account(accountGateway.getNextValidId(), username, password);
         try {
             accountGateway.persist(account);

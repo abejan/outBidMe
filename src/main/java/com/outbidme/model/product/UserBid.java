@@ -1,7 +1,12 @@
 package com.outbidme.model.product;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class UserBid implements Comparable<UserBid>{
 
+	@Id
 	private int id;
 	private int accountId;
 	private int productId;

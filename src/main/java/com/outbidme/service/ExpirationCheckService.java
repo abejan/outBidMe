@@ -6,27 +6,17 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import com.outbidme.configuration.eventbus.EventBusService;
-import com.outbidme.configuration.eventbus.IEventBus;
-import com.outbidme.model.notifications.BidMessage;
 import com.outbidme.model.notifications.ProductExpiredMessage;
-import com.outbidme.model.product.BidStatus;
 import com.outbidme.model.product.Product;
-import com.outbidme.model.product.UserBid;
-import com.outbidme.persistance.PersistanceFactory;
 import com.outbidme.persistance.dao.product.ProductDAO;
 
 /**
  * Schedules, or runs a job on demand responsible for checking whether products have expired or not, 
  * and sending the appropriate notifications for any subscribers which are interested in products.
  */
-public class ExpirationCheckService {
+public class ExpirationCheckService extends OutBidMeService{
 
-	private final ProductDAO productGateway  = PersistanceFactory.getProductDataAccessObj();
-//	private final NotificationsService notificationService = new NotificationsService();
-//	private final BiddingService 	   biddingService	   = new BiddingService();
-	
-	private final IEventBus eventBus = new EventBusService().getEventBus();
+	private final ProductDAO productGateway  = persistanceFactory.getProductDataAccessObj();
 	
 	private final Callable<Void> expirationCheckTask = new Callable<Void>(){
 		@Override

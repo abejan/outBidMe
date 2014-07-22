@@ -9,13 +9,12 @@ import org.junit.Test;
 import com.outbidme.general.AbstractTest;
 import com.outbidme.general.TestUtils;
 import com.outbidme.model.product.Product;
-import com.outbidme.persistance.PersistanceFactory;
 import com.outbidme.persistance.PersistenceException;
 import com.outbidme.persistance.dao.product.ProductDAO;
 
 public class ProductTest extends AbstractTest {
 
-    private final static ProductDAO productGateway = PersistanceFactory.getProductDataAccessObj();
+    private final static ProductDAO productGateway = persistanceFactory.getProductDataAccessObj();
 
     @Test
     public void can_create_product(){

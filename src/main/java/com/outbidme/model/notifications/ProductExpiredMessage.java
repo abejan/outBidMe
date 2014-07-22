@@ -1,8 +1,12 @@
 package com.outbidme.model.notifications;
 
-import com.outbidme.model.product.Product;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
 public class ProductExpiredMessage {
+	
+	@Id
     private int expiredProductId;
 
     public ProductExpiredMessage(int expiredProductId) {

@@ -10,13 +10,12 @@ import org.junit.Test;
 import com.outbidme.general.AbstractTest;
 import com.outbidme.general.TestUtils;
 import com.outbidme.model.authentication.Account;
-import com.outbidme.persistance.PersistanceFactory;
 import com.outbidme.persistance.PersistenceException;
 import com.outbidme.persistance.dao.authentication.AccountDAO;
 
 public class AuthenticationPersistanceTest extends AbstractTest{
 	
-    private static final AccountDAO accountGateway = PersistanceFactory.getAccountDataAccessObj();
+    private static final AccountDAO accountGateway = persistanceFactory.getAccountDataAccessObj();
 
 	@Test
 	public void can_retrieve_an_existing_account_with_username(){

@@ -1,4 +1,4 @@
-package com.outbidme.configuration.eventbus.adapter;
+package com.guava.eventbus.adapter;
 
 import com.google.common.eventbus.Subscribe;
 import com.outbidme.configuration.eventbus.IEventListener;;

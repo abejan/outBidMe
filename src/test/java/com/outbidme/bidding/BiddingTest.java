@@ -8,7 +8,6 @@ import org.junit.Test;
 import com.outbidme.general.AbstractTest;
 import com.outbidme.general.TestUtils;
 import com.outbidme.model.product.UserBid;
-import com.outbidme.persistance.PersistanceFactory;
 import com.outbidme.persistance.PersistenceException;
 import com.outbidme.persistance.dao.product.UserBidDAO;
 import com.outbidme.service.BiddingService;
@@ -18,7 +17,7 @@ public class BiddingTest extends AbstractTest{
 	/** Always perform cleanup of any newly added bids in tests to avoid test failures */
 	
 	private final static BiddingService biddingService = new BiddingService();
-	private final static UserBidDAO biddingGateway = PersistanceFactory.getUserBidDataAccessObj();
+	private final static UserBidDAO biddingGateway = persistanceFactory.getUserBidDataAccessObj();
 	
 	
 	
@@ -28,14 +27,14 @@ public class BiddingTest extends AbstractTest{
 		UserBid userBid = biddingService.placeBid(TestUtils.TEST_ACCOUNT_ID, 
 											TestUtils.TEST_PRODUCT_ID, TestUtils.TEST_PRODUCT_PRICE);
 
-		assertTrue(PersistanceFactory.getPersistanceManager().contains(userBid));
+		assertTrue(persistanceFactory.getPersistanceManager().contains(userBid));
 		biddingService.removeUserBidOnProduct(userBid.getId());
 		
 		//test with price higher
 		userBid = biddingService.placeBid(TestUtils.TEST_ACCOUNT_ID, 
 				TestUtils.TEST_PRODUCT_ID, TestUtils.TEST_PRODUCT_PRICE + 1);
 		
-		assertTrue(PersistanceFactory.getPersistanceManager().contains(userBid));
+		assertTrue(persistanceFactory.getPersistanceManager().contains(userBid));
 		biddingService.removeUserBidOnProduct(userBid.getId());
 	}
 
@@ -61,7 +60,7 @@ public class BiddingTest extends AbstractTest{
 		}
 		biddingService.removeUserBidOnProduct(testId);
 		
-		assertTrue(!PersistanceFactory.getPersistanceManager().contains(testUserBid));
+		assertTrue(!persistanceFactory.getPersistanceManager().contains(testUserBid));
 		
 	}
 
@@ -71,7 +70,7 @@ public class BiddingTest extends AbstractTest{
 		UserBid bid2 = biddingService.placeBid(TestUtils.TEST_ACCOUNT_ID, TestUtils.TEST_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 2);
 		
 		assertTrue(bid2 == null);
-		assertTrue(PersistanceFactory.getPersistanceManager().contains(bid1));
+		assertTrue(persistanceFactory.getPersistanceManager().contains(bid1));
 		
 		//cleanup
 		biddingService.removeUserBidOnProduct(bid1.getId());
@@ -83,7 +82,7 @@ public class BiddingTest extends AbstractTest{
 		UserBid bid2 = biddingService.placeBid(TestUtils.TEST_ACCOUNT_ID_2, TestUtils.TEST_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 1);
 		
 		assertTrue(bid2 == null);
-		assertTrue(PersistanceFactory.getPersistanceManager().contains(bid1));
+		assertTrue(persistanceFactory.getPersistanceManager().contains(bid1));
 		
 		//cleanup
 		biddingService.removeUserBidOnProduct(bid1.getId());
@@ -93,12 +92,12 @@ public class BiddingTest extends AbstractTest{
 	public void can_place_multiple_bids_on_same_product_by_different_users_if_price_is_increasing(){
 		
 		UserBid bid1 = biddingService.placeBid(TestUtils.TEST_ACCOUNT_ID, TestUtils.TEST_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 1);
-		assertTrue(PersistanceFactory.getPersistanceManager().contains(bid1));
+		assertTrue(persistanceFactory.getPersistanceManager().contains(bid1));
 		
 		
 		//next bid will replace old winning bid
 		UserBid bid2 = biddingService.placeBid(TestUtils.TEST_ACCOUNT_ID_2, TestUtils.TEST_PRODUCT_ID,  TestUtils.TEST_PRODUCT_PRICE + 2);
-		assertTrue(PersistanceFactory.getPersistanceManager().contains(bid2));
+		assertTrue(persistanceFactory.getPersistanceManager().contains(bid2));
 		
 		//cleanup
 		biddingService.removeUserBidOnProduct(bid1.getId());
