@@ -1,5 +1,8 @@
 package com.spring.persistance.dao;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.stereotype.Repository;
 
 import com.outbidme.model.authentication.Account;
@@ -8,34 +11,33 @@ import com.outbidme.persistance.dao.authentication.AccountDAO;
 
 
 @Repository
-public class AccountDAOSpringImpl implements AccountDAO{
+public class AccountSpringDAO implements AccountDAO{
 
+	@PersistenceContext
+	private EntityManager em;
+	
+	
 	@Override
 	public void persist(Account account) throws PersistenceException {
-		
+		em.persist(account);
 	}
 
 	@Override
 	public Account findAccountById(int accountId) {
-		// TODO Auto-generated method stub
-		return null;
+		return em.find(Account.class, accountId);
 	}
 
 	@Override
 	public Account findAccountByUserName(String username) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void removeAccountWithUsername(String string) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public int getNextValidId() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

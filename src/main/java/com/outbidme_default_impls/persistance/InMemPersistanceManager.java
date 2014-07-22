@@ -1,4 +1,4 @@
-package com.spring.persistance;
+package com.outbidme_default_impls.persistance;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -16,8 +16,7 @@ public class ApplicationStartupListener extends ContextLoaderListener{
 
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
-		SystemConfiguration.Instance
-			.registerComponent(Type.PersistanceFactory, new DefaultPersistanceFactory());
+		SystemConfiguration.Instance.registerComponent(Type.PersistanceFactory, new DefaultPersistanceFactory());
 		SystemConfiguration.Instance.registerComponent(Type.EventBus, new EventBusAdapter());
 	}
 		

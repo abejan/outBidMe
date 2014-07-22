@@ -10,7 +10,6 @@ import com.outbidme_default_impls.persistance.dao.authentication.AccountDAOImpl;
 import com.outbidme_default_impls.persistance.dao.notifications.MailBoxDAOImpl;
 import com.outbidme_default_impls.persistance.dao.product.ProductDAOImpl;
 import com.outbidme_default_impls.persistance.dao.product.UserBidDAOImpl;
-import com.spring.persistance.InMemPersistanceManager;
 
 /**
  * Responsible for creating implementations of your faveourite OutBidMe DAOs.
