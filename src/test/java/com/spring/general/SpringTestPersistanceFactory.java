@@ -15,7 +15,7 @@ import com.spring.persistance.SpringPersistanceFactory;
  * An extension of the SpringPersistanceFactory plugin component of OutBidMe, used in tests which need to 
  * run in a specific Spring application context, so that autowiring and other goodies can work with JUnit.
  */
-@ContextConfiguration("classpath:bean-dao-tests.xml")
+@ContextConfiguration( "file:src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml")
 public class SpringTestPersistanceFactory extends SpringPersistanceFactory{
 	
 	@Autowired

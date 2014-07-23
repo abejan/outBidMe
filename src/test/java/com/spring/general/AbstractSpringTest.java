@@ -12,7 +12,12 @@ import com.outbidme.general.AbstractTest;
  * This base class will be extended by all tests which require running in a Spring context.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:bean-dao-tests.xml")
+@ContextConfiguration
+(
+  {
+   "file:src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml"
+  }
+)
 @Transactional
 public class AbstractSpringTest extends AbstractTest {
 }

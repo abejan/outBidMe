@@ -9,7 +9,6 @@
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
  
-    <context:component-scan base-package="com.spring.controllers" />
     <mvc:annotation-driven />
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -23,12 +22,7 @@
     <mvc:resources mapping="/images/**" location="/resources/images/" />
     <mvc:resources mapping="/js/**" location="/resources/js/" />
     
-    <!-- Custom bean -->
-    <!--bean id="loginPresenter" class="com.outbidme.presentation.authentication.LoginPresenter" /-->
-    <!--bean id="homePageController" class="com.spring.controllers.general.HomePageController">
-	</bean>
-    <bean id="authentictionController" class="com.spring.controllers.authentication.AuthenticationController">
-		<property name="loginPresenter" ref="loginPresenter" />
-	</bean> -->
-   
+    <import resource="bean-controllers.xml"/> 
+    <import resource="bean-dao.xml"/>
+    
 </beans>

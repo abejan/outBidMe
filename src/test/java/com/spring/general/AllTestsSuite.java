@@ -25,17 +25,17 @@ import com.spring.authentication.AuthenticationSpringDAOTest;
 	AuthenticationControllerTest.class, 
 	AuthenticationSpringDAOTest.class
 })
-@ContextConfiguration("classpath:bean-dao-tests.xml")
+@ContextConfiguration( "file:src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml")
 public class AllTestsSuite {
 	
 	@BeforeClass
 	public static void setupSuite(){
 		
-//		Map<Type, Object> springContextMockConfiguration = new HashMap<Type, Object>(2);
-//		springContextMockConfiguration.put(Type.PersistanceFactory, new SpringTestPersistanceFactory());
-//		springContextMockConfiguration.put(Type.EventBus, new EventBusAdapter());
-//		
-//		AbstractTest.registerSystemMocks(springContextMockConfiguration);
+		Map<Type, Object> springContextMockConfiguration = new HashMap<Type, Object>(2);
+		springContextMockConfiguration.put(Type.PersistanceFactory, new SpringTestPersistanceFactory());
+		springContextMockConfiguration.put(Type.EventBus, new EventBusAdapter());
+		
+		AbstractTest.registerSystemMocks(springContextMockConfiguration);
 	}
 	
 }

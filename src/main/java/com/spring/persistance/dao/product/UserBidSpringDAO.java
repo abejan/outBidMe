@@ -7,10 +7,13 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import org.springframework.stereotype.Repository;
+
 import com.outbidme.model.product.UserBid;
 import com.outbidme.persistance.PersistenceException;
 import com.outbidme.persistance.dao.product.UserBidDAO;
 
+@Repository
 public class UserBidSpringDAO implements UserBidDAO{
 
 	@PersistenceContext
