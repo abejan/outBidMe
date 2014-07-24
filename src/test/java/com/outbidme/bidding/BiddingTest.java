@@ -17,7 +17,7 @@ public class BiddingTest extends AbstractTest{
 	/** Always perform cleanup of any newly added bids in tests to avoid test failures */
 	
 	private final static BiddingService biddingService = new BiddingService();
-	private final static UserBidDAO biddingGateway = persistanceFactory.getUserBidDataAccessObj();
+	private final UserBidDAO biddingGateway = persistanceFactory.getUserBidDataAccessObj();
 	
 	
 	

@@ -14,7 +14,7 @@ import com.outbidme.service.AuthenticationService;
 
 public class AuthenticationTest extends AbstractTest{
 
-    private static AuthenticationService authenticationService = new AuthenticationService();
+    private final AuthenticationService authenticationService = new AuthenticationService();
 
 	@Test
 	public void can_create_account_with_username_and_password() {

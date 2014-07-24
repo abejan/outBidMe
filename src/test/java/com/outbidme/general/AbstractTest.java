@@ -33,7 +33,10 @@ public abstract class AbstractTest {
     protected static PersistanceManager persistanceManager;
     private static boolean isSetup = false;
     private static boolean configsRegistered = false;
-
+    {
+      setup();
+    }
+    
     
     @Before
     public void initMockito(){
@@ -42,7 +45,6 @@ public abstract class AbstractTest {
     }
     
 
-    @BeforeClass
     public static void setup(){
         if (isSetup) {
             return;

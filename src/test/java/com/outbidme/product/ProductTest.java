@@ -14,7 +14,7 @@ import com.outbidme.persistance.dao.product.ProductDAO;
 
 public class ProductTest extends AbstractTest {
 
-    private final static ProductDAO productGateway = persistanceFactory.getProductDataAccessObj();
+    private final ProductDAO productGateway = persistanceFactory.getProductDataAccessObj();
 
     @Test
     public void can_create_product(){

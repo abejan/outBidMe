@@ -15,7 +15,7 @@ import com.outbidme.persistance.dao.authentication.AccountDAO;
 
 public class AuthenticationPersistanceTest extends AbstractTest{
 	
-    private static final AccountDAO accountGateway = persistanceFactory.getAccountDataAccessObj();
+    private final AccountDAO accountGateway = persistanceFactory.getAccountDataAccessObj();
 
 	@Test
 	public void can_retrieve_an_existing_account_with_username(){
