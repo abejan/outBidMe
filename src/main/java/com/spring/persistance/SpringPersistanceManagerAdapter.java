@@ -17,7 +17,8 @@ public class SpringPersistanceManagerAdapter implements PersistanceManager{
 
 	@PersistenceContext
 	private EntityManager em;
-
+	
+	
 	@Override
 	public void persist(Object entity) throws PersistenceException {
 		em.persist(entity);
@@ -42,6 +43,10 @@ public class SpringPersistanceManagerAdapter implements PersistanceManager{
 	public <T> int getEntityCount(Class<T> clazz) {
 		Query query = em.createQuery("SELECT entity FROM " + clazz.getName() + "entity");
 		return (Integer)query.getResultList().size();
+	}
+	
+	public void setEntityManager(EntityManager em) {
+		this.em = em;
 	}
 	
 }

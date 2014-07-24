@@ -46,7 +46,8 @@ public class AccountSpringDAO implements AccountDAO{
 	@Override
 	public int getNextValidId() {
 		Query query = em.createQuery("SELECT MAX(ac.id) FROM Account ac");
-		return (Integer)query.getSingleResult() + 1;
+		Object result = query.getSingleResult();
+		return (result == null) ? 0 : (Integer)query.getSingleResult() + 1;
 	}
 
 }

@@ -10,11 +10,11 @@ import org.junit.runner.JUnitCore;
 import org.junit.runners.model.InitializationError;
 
 import com.guava.eventbus.adapter.EventBusAdapter;
-import com.outbidme.authentication.AuthenticationPersistanceTest;
 import com.outbidme.configuration.SystemConfiguration.Type;
 import com.outbidme.general.AbstractTest;
 import com.outbidme.general.OutBidMeTestSuite;
 import com.spring.authentication.AuthenticationControllerTest;
+import com.spring.authentication.AuthenticationSpringDAOTest;
 
 
 public class AllTestsSuite {
@@ -38,15 +38,15 @@ public class AllTestsSuite {
 		initFakeSpringTestsForAutowiring();
 		setupConfigurations();
 		
-		TestSuite springTests = new TestSuite();
-		for(Class<?> clazz : getSpringTestClasses()){
-			springTests.addTest(createTest(clazz));
-		}
+//		TestSuite springTests = new TestSuite();
+//		for(Class<?> clazz : getSpringTestClasses()){
+//			springTests.addTest(createTest(clazz));
+//		}
 
 		JUnitCore jUnitCore = new JUnitCore();
 		jUnitCore.run(OutBidMeTestSuite.class);
 		
-		jUnitCore.run(springTests);
+		//jUnitCore.run(springTests);
 	}
 
 	private static junit.framework.Test createTest(Class<?> clazz) {
@@ -54,7 +54,7 @@ public class AllTestsSuite {
 	}
 	
 	private static Class<?>[] getSpringTestClasses(){
-		return new Class<?>[] {AuthenticationPersistanceTest.class, 
+		return new Class<?>[] {AuthenticationSpringDAOTest.class, 
 							   AuthenticationControllerTest.class};
 	}
 	

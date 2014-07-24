@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.mockito.MockitoAnnotations;
 
 import com.guava.eventbus.adapter.EventBusAdapter;
